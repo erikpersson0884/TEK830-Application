@@ -13,6 +13,7 @@
     "buildAndDeploy": "npm run build && npm run deploy"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "gh-pages": "^6.1.1",
     "johnblund": "file:",
     "react": "^18.3.1",
