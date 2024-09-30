@@ -1,6 +1,6 @@
 import React from "react";
 
-const Clock = (
+const ClockPic = (
   startHour: number,
   startMinute: number,
   stopHour: number,
@@ -93,4 +93,4 @@ const Clock = (
   );
 };
 
-export default Clock;
+export default ClockPic;
