@@ -1,3 +1,6 @@
+.devicePane {
+    background: #a19595;
+}
 .row {
     margin: 0;
     padding: 0;
@@ -7,4 +10,31 @@
     align-items: center;
     width: 100%;
     height: 100%;
+}
+
+
+.devicePane .deviceDiv {
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.devicePane .deviceList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.devicePane .device {
+    background: #d2c7c7;
+    color: #000;
+    width: 10rem;
+    height: 10rem;
+    padding: 1rem;
+    border: .1rem #000 solid;
+}
+
+.Lights {
+    
 }

@@ -8,9 +8,7 @@ const StatusPage: React.FC<{ devices: Device[], setDevices: React.Dispatch<React
   
   return (
     <div className="statusPage">
-      <div className="split left">
-        <DevicePane devices={devices} setDevices={setDevices} />
-      </div>
+      <DevicePane className="split left" devices={devices} setDevices={setDevices} />
       <div className="split right">
         <div className="contentPane">
           fsja

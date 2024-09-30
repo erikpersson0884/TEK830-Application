@@ -16,10 +16,12 @@ function App() {
 
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
+    
+
     return (
         <>
 
-        <BrowserRouter basename='/TEK830-Application'> 
+        <BrowserRouter basename='/TEK830-Application/'> 
 
             <Header />
             <Routes>
