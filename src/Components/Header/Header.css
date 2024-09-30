@@ -1,0 +1,48 @@
+
+
+.pageHeader {
+    background-color: #1d1d1d;
+
+    text-align: left;
+
+    width: 100%;
+    height: 4rem;
+    padding: 1rem;
+}
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    height: 5rem;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4rem;
+    width: 100%;
+}
+
+.nav {
+    text-decoration: none;
+    flex: 1;
+}
+
+.logo {
+    flex: 1;
+}
+
+.navItem a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.logo a {
+    color: aliceblue;
+    text-decoration: none;
+}

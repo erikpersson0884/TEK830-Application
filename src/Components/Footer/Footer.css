@@ -1,0 +1,28 @@
+footer {
+    display: none !important;
+    background: #cacaca;
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 3rem;
+    width: 100%;
+    margin-top: auto;
+}
+
+footer img {
+    height: 90%;
+}
+
+footer .listOfPeople {
+    height: 50%;
+}
+
+footer .listFooter {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    list-style-type: none;
+}
+
+footer .listOfPeopleItem {
+    color: black;
+}

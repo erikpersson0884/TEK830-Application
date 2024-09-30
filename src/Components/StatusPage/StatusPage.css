@@ -1,0 +1,33 @@
+.statusPage {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1;
+}
+
+.split {
+  width: 50%;
+}
+
+.left {
+  left: 0;
+  background-color: #003399;
+}
+
+.right {
+  right: 0;
+  background-color: #ffcc00;
+}
+
+.devicePane{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
