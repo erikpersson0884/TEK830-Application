@@ -14,7 +14,13 @@ const LightTimer = () => {
           ></h1>
           <div
             className="p-2 m-3 bg-secondary text-white"
-            children={Clock(19, 8, 22, 20)}
+            children={
+              <Button
+                styling="btn btn-secondary"
+                onClicked={() => SetTime()}
+                children={Clock(19, 8, 22, 20)}
+              />
+            }
           />
           <div className="p-1 m-3 bg-secondary text-white row">
             <div className="col-sm h-50">
@@ -40,5 +46,6 @@ const LightTimer = () => {
 
 const DimLights = () => void {};
 const PauseDim = () => void {};
+const SetTime = () => void {};
 
 export default LightTimer;
