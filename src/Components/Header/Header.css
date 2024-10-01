@@ -25,12 +25,12 @@
 
 .navList {
     text-wrap: nowrap;
-    flex: 1;
+    flex: 2;
     display: flex;
     list-style: none;
     justify-content: flex-start;
     align-items: center;
-    gap: 4rem;
+    gap: 10rem;
 
     width: min-content;
 }

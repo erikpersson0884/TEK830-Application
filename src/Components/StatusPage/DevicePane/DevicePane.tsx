@@ -22,23 +22,29 @@ const DevicePane: React.FC<{className: String, devices: Device[], setDevices: Re
                   <div className="deviceDiv" key={deviceType.name}>
                   <h3>{deviceType.name}</h3>
                   <ul className="deviceList">
-                    {devices.filter((device) => device instanceof deviceType.type && device.isIncluded)
-                    .map((device) => (
-                    <li 
-                      key={device.name} 
-                      className={`${deviceType.name} device`} 
-                      style={device instanceof Lamp ? { background: `linear-gradient(to right, transparent, ${device.color})`} : {}}
-                    >
-                        <ul>
-                        
-                        </ul>
-                      {device.name} - {device.getStatus()}
-                    </li>
+                    {devices.filter((device) => device instanceof deviceType.type).map((device) => (
+                      device.isIncluded ?(
+                        <li 
+                          key={device.name} 
+                          className={`${deviceType.name} device`}  
+                          style={device instanceof Lamp ? { background: device.color } : {}}
+                        >
+                          {device.name} - {device.getStatus()}
+                        </li>
+                    ) : null
                     ))}
                   </ul>
                   </div>
                 ))}
           </ul>
+
+          <button onClick={() => {
+            devices.forEach((device) => {
+              if (device.name === "ac1") {
+              console.log(device.isIncluded);
+              }
+            });
+          }}>click me</button>
       </div>
     );
 };

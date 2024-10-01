@@ -1,5 +1,7 @@
 .devicePane {
-    background: #a19595;
+    background: #444554;
+    border-right: 0.005rem solid black;
+    box-shadow: rgb(104, 105, 107) 0px 3px 6px 3px inset, rgba(255, 255, 255, 0.5) 1px -3px 6px -3px inset;
 }
 .row {
     margin: 0;
@@ -15,7 +17,7 @@
 
 .devicePane .deviceDiv {
     padding: 1rem;
-    border-bottom: 1px solid black;
+    border-bottom: 0.005rem solid black;
 }
 
 .devicePane .deviceList {
@@ -28,13 +30,16 @@
 
 .devicePane .device {
     background: #d2c7c7;
-    color: #000;
+    color: black;
     width: 10rem;
     height: 10rem;
     padding: 1rem;
-    border: .1rem #000 solid;
+    border: .005rem #000 solid;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 5px;
 }
 
-.Lights {
-    
+.devicePane .device:hover {
+    cursor: pointer;
+    opacity: 0.9;
 }
