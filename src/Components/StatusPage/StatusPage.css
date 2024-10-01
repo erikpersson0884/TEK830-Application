@@ -1,10 +1,20 @@
 .statusPage {
     display:flex;
     flex-direction: row;
-    width: 100%;
     flex: 1;
+    width: 100%;
 }
-
+.buttonText {
+  font-size: 40px;
+}
+.buttonText:hover {
+  border-radius: 1rem;
+  background-color: #d2a800;
+}
+.clock:hover {
+  border-radius: 2rem;
+  background-color: #d2a800;
+}
 .split {
   width: 50%;
 }
@@ -15,6 +25,7 @@
 
 .right {
   right: 0;
+  padding: 0px;
   background-color: #ffcc00;
 }
 
