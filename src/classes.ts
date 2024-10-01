@@ -36,8 +36,16 @@ export class Device {
         return this.place;
     }
 
-    getStatus(): string {
-        return `Power: ${this.isPoweredOn ? 'ON' : 'OFF'}`;
+    getName(): string {
+        return this.name;
+    }
+
+    getIsPoweredOn(): boolean {
+        return this.isPoweredOn;
+    }
+
+    getIsIncluded(): boolean {
+        return this.isIncluded;
     }
 }
 
@@ -62,15 +70,19 @@ export class Lamp extends Device {
         this.brightness = brightness;
     }
 
-    getStatus(): string {
-        return `Power: ${this.isPoweredOn ? 'ON' : 'OFF'},\n Color: ${this.color},\n Brightness: ${this.brightness}`;
+    getBrightness(): number {
+        return this.brightness;
     }
+
+    getColor(): string {
+        return this.color;
+    }
+
 }
 
 export class Ac extends Device {
     temperature: number;
 
-    
     constructor(name: string, place: string, isPoweredOn: boolean, isIncluded: boolean, temperature: number) {
         super(name, place, isPoweredOn, isIncluded);
         this.temperature = temperature;
@@ -83,8 +95,8 @@ export class Ac extends Device {
         this.temperature = temperature;
     }
 
-    getStatus(): string {
-        return `Power: ${this.isPoweredOn ? 'ON' : 'OFF'},\n Temperature: ${this.temperature}`;
+    getTemperature(): number {
+        return this.temperature;
     }
 }
 
@@ -104,7 +116,7 @@ export class Blinds extends Device {
         this.isOpen = false;
     }
 
-    getStatus(): string {
-        return `Power: ${this.isPoweredOn ? 'ON' : 'OFF'},\n Open: ${this.isOpen}`;
+    getIsOpen(): boolean {
+        return this.isOpen;
     }
 }

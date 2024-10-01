@@ -43,3 +43,11 @@
     cursor: pointer;
     opacity: 0.9;
 }
+
+
+.devicePane .Lights {
+    background-image: url("light.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

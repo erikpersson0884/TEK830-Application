@@ -6,7 +6,6 @@ import './App.css'
 import SettingsPage from './Components/SettingsPage/SettingsPage'
 import Header from './Components/Header/Header'
 import StatusPage from './Components/StatusPage/StatusPage'
-import Footer from './Components/Footer/Footer'
 
 import { useState } from 'react'
 import { Device, Lamp, Ac, Blinds  } from './classes'
@@ -16,7 +15,7 @@ function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
     const clockSpeed = 100;
-    const [clock, setClock] = useState(new Date("2021-10-10T20:00:00"));
+    const [clock, setClock] = useState(new Date("2021-10-10T04:00:00"));
 
 
     React.useEffect(() => {
@@ -33,28 +32,59 @@ function App() {
 
     function handleDevices() {
         let bedTime: string = localStorage.getItem('bedTime') || '22:00';
-        
+        let wakeTime: string = localStorage.getItem('wakeUpTime') || '06:00';
+
+        // TIme for bedtime
         const [bedHour, bedMinute] = bedTime.split(':').map(Number);
         const bedTimeDate = new Date(clock);
         bedTimeDate.setHours(bedHour, bedMinute, 0, 0);
 
+        //Time for wake up
+        const [wakeHour, wakeMinute] = wakeTime.split(':').map(Number);
+        const wakeTimeDate = new Date(clock);
+        wakeTimeDate.setHours(wakeHour, wakeMinute, 0, 0);
+
         const timeUntilBedtime = (bedTimeDate.getTime() - clock.getTime()) / 1000 / 60; // time in minutes
 
-        const bedRoutineStartTime = 2*60; // 2 hours before bedtime
+        const bedRoutineTime = 2*60; // 2 hours before bedtime
+        const wakeRoutineTime = 60; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
-                // if (timeUntilBedtime < bedRoutineStartTime) {
-                    if (device instanceof Lamp) {
-                        device.brightness = Math.min(100,Math.max(0,Math.round((100/bedRoutineStartTime)*timeUntilBedtime)))
-                    }
-                     if (device instanceof Ac && device.temperature > 18) {
-                        //device.temperature =
-                    }
-                // }
+            
+            // Bedtime routine
+            if (device instanceof Lamp) {
+                let newBrightness = 0;
+                
+                console.log((clock.getTime() - wakeTimeDate.getTime())/1000/60, wakeRoutineTime);
+
+                if (bedTimeDate.getHours() - bedRoutineTime <= clock.getHours() && clock.getHours() <= bedTimeDate.getHours()) {
+                    newBrightness = clampAndRoundBrightness((100/bedRoutineTime)*timeUntilBedtime);
+                } else if (wakeTimeDate.getHours() - wakeRoutineTime <= clock.getHours() && clock.getHours() <= wakeTimeDate.getHours()) {
+                    newBrightness = clampAndRoundBrightness((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
+                }
+
+                device.setBrightness(newBrightness);
+            }
+            if (device instanceof Ac && device.temperature > 18) {
+                // const newTemperature = Math.max(18,Math.round((18/bedRoutineTime)*timeUntilBedtime));
+
+                // device.setTemperature(newTemperature);
+            }
+            if (device instanceof Blinds && timeUntilBedtime < 30) {
+                device.closeBlinds();
+            }
+
+            // Morning routine
+ 
+
+
         });
     }
 
 
+    function clampAndRoundBrightness(brightness: number) {
+        return Math.round(Math.min(100, Math.max(0, brightness)));
+    }
 
     return (
         <>

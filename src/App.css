@@ -64,8 +64,8 @@ body {
 }
 
 #root {
-  background: #5B5B5B;
-  color: #fff;
+  background: #444554;
+  color: #DBE0D7;
 
   display: flex;
   flex-direction: column;
