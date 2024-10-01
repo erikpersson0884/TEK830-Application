@@ -10,6 +10,7 @@ import StatusPage from './Components/StatusPage/StatusPage'
 import { useState } from 'react'
 import { Device, Lamp, Ac, Blinds  } from './classes'
 import initialDevices from './Controllers/IkeaAPI'
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
@@ -107,4 +108,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
