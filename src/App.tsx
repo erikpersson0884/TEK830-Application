@@ -11,6 +11,7 @@ import Footer from './Components/Footer/Footer'
 import { useState } from 'react'
 import { Device, Lamp, Ac, Blinds  } from './classes'
 import initialDevices from './Controllers/IkeaAPI'
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
