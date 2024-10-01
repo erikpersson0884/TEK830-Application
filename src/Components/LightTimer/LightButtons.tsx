@@ -1,22 +1,25 @@
 import React from "react";
 import Button from "../Button/Button";
+import "../StatusPage/StatusPage.css";
 
 const LightButtons = () => {
   return (
     <>
-      <div className="p-1 m-3 bg-secondary text-white row">
-        <div className="col-sm h-50">
+      <div className="col">
+        <div className="text-center w-20 h-80">
           <Button
-            styling="btn btn-secondary"
+            styling="btn w-100 h-100 buttonText"
             onClicked={DimLights}
-            children={<h2>Start now</h2>}
+            children={<p className="buttonText">Start now</p>}
           />
         </div>
-        <div className="col-sm h-50">
+      </div>
+      <div className="col">
+        <div className="text-center w-20 h-80">
           <Button
-            styling="btn btn-secondary align-middle"
+            styling="btn w-100 h-100 buttonText"
             onClicked={PauseDim}
-            children={<h2>Pause</h2>}
+            children={<p className="buttonText">Pause</p>}
           />
         </div>
       </div>

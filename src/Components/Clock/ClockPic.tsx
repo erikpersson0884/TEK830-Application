@@ -1,4 +1,5 @@
 import React from "react";
+import "../SettingsPage/SettingsPage.css";
 
 const ClockPic = (
   startHour: number,
@@ -33,7 +34,7 @@ const ClockPic = (
       viewBox="0 0 64 64"
       enable-background="new 0 0 64 64"
       xml:space="preserve"
-      className="w-25 h-25"
+      className="m-auto w-75 h-75"
     >
       <g>
         <circle fill="#231F20" cx={32} cy={32} r={31} />

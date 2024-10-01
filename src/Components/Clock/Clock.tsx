@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Button/Button";
 import ClockPic from "./ClockPic";
+import "../SettingsPage/SettingsPage.css";
 interface Props {
   startHour: number;
   startMinute: number;
@@ -16,10 +17,10 @@ const Clock = ({
 }: Props) => {
   return (
     <div
-      className="p-2 m-3 bg-secondary text-white"
+      className="h-50 clock text-white"
       children={
         <Button
-          styling="btn btn-secondary"
+          styling="btn h-100 w-100"
           onClicked={() => ""}
           children={ClockPic(startHour, startMinute, stopHour, stopMinute)}
         />
