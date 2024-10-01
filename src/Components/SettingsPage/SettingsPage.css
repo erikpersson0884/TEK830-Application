@@ -1,5 +1,4 @@
 
-
 .settingsPage {
     font-size: 1.5rem;
     font-family: 'Courier New', Courier, monospace;
@@ -28,6 +27,10 @@
 
 .settingsPage>div h2 {
     font-size: 1.5rem;
+}
+
+.settingsPage label {
+    cursor: pointer;
 }
 
 .settingsPage .place {

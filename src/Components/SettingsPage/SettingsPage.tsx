@@ -3,12 +3,14 @@ import './SettingsPage.css';
 import { Device } from '../../classes';
 
 const SettingsPage: React.FC<{ devices: Device[], setDevices: React.Dispatch<React.SetStateAction<Device[]>> }> = ({ devices, setDevices }) => {
-
-    function toggleDeviceInclusion(event, deviceToToggle: Device) {
-        const updatedDevices: Device[] = devices.map(device => 
-            device.name === deviceToToggle.name ? { ...device, isIncluded: event.target.checked } : device
-        );
-        setDevices(updatedDevices);
+    
+    const toggleDeviceInclusion = (event, device) => {
+        setDevices(devices.map((d) => {
+            if (d.name === device.name) {
+                d.isIncluded = event.target.checked;
+            }
+            return d;
+        }));
     };
 
     let [bedTime, setBedTime] = useState(localStorage.getItem('bedTime')? localStorage.getItem('bedTime') : '22:00');

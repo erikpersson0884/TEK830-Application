@@ -4,6 +4,60 @@
   box-sizing: border-box;
 }
 
+
+.noUlFormatting {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.noAFormatting, .noAFormatting * {
+  color: var(--textColor);
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.noButtonFormatting {
+  border: none;
+  background: inherit;
+  cursor: pointer;
+}
+
+.noInputFormatting {
+  border: none;
+  outline: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+
+
+.a {
+  position: relative;
+}
+
+.a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #d6155c;
+  transition: width 0.3s ease;
+}
+
+.a:hover::after {
+  width: 100%;
+}
+
+
 body {
   min-width: 100vw;
   min-height: 100vh;
