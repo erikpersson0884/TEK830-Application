@@ -11,7 +11,7 @@ const LightTimer = ({ startHour, startMinute }: Props) => {
   return (
     <>
       <h1
-        className="h-25 text-white text-center m-auto"
+        className="h-20 text-white text-center m-auto"
         children={DimmingTimer(startHour, startMinute)}
       ></h1>
     </>
