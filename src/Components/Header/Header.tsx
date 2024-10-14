@@ -6,8 +6,12 @@ import './Header.css';
 const Header = () => {
     let navList = [
         {
-            name: "Status",
-            link: "/status"
+            name: "Home",
+            link: "/"
+        }
+        {
+            name: "Sleep Report",
+            link: "/report"
         },
         {
             name: "My Settings",
@@ -22,16 +26,11 @@ const Header = () => {
             </h1>
             
             <ul className='navList'>
-                <li className='navItem'>
-                    <Link to="/"> Home </Link>
-                </li>
-
                 {navList.map((item) =>
                     <li className='navItem' key={item.name}>
                         <Link to={item.link}> {item.name} </Link>
                     </li>
                 )}
-
             </ul>
         </div>
     )
