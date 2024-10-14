@@ -6,10 +6,10 @@ import LightButtons from "../../LightTimer/LightButtons";
 const ContentPane = () => {
   return (
     <>
-      <div className="container pr-0 text-white h-100">
+      <div className="container text-white h-100">
         <LightTimer startHour={19} startMinute={8} />
-        <Clock startHour={19} startMinute={8} stopMinute={20} stopHour={22} />
-        <div className="h-25 m-auto row ">
+        <Clock startHour={19} startMinute={8} stopHour={22} stopMinute={20} />
+        <div className="m-auto row" style={{ height: "25%" }}>
           <LightButtons />
         </div>
       </div>
