@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Matemasie&display=swap');
 
 
 .pageHeader {
     background-color: #172121;
     color: #DBE0D7;
+
+    
 
     text-align: left;
 
@@ -22,6 +25,7 @@
 
 .logo {
     flex: 1;
+    font-family: 'Matemasie', cursive;
 }
 
 .navList {

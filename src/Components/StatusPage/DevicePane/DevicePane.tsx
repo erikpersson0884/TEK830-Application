@@ -27,13 +27,23 @@ const DevicePane: React.FC<{className: String, devices: Device[], setDevices: Re
                             device.isIncluded ?(
                                 <li 
                                     key={device.name} 
-                                    className={`${deviceType.name} device`}  
-                                    style={device instanceof Lamp ? { backgroundColor: device.color } : {}}
+                                    className={`${deviceType.name.toLocaleLowerCase()} device`}  
+                                    
                                 >
-                                    <p>{device.name}</p>
-                                    <p>{device.getIsPoweredOn() ? "Is On" : "Is Off"}</p>
-                                    {device instanceof Lamp ? <p>{device.brightness}</p> : null}
-                                    {device instanceof Ac ? <p>{device.temperature}°C</p> : null}
+                                    <div 
+                                        className="deviceImage"
+                                        style={{
+                                            ...(device instanceof Lamp ? { backgroundColor: device.color, backgroundImage: "url(lightbulb.svg)"} : {}),
+                                            ...(device instanceof Ac ? { backgroundImage: "url(thermostat.svg)"} : {}),
+                                            ...(device instanceof Blinds ? { backgroundImage: "url(blinds.svg)"} : {}),
+                                        }}
+                                    ></div>
+                                    <div className="deviceInfo">
+                                        <p>{device.name}</p>
+                                        <p>{device.getIsPoweredOn() ? "Is On" : "Is Off"}</p>
+                                        {device instanceof Lamp ? <p>Brightness: {device.brightness}</p> : null}
+                                        {device instanceof Ac ? <p>Temperature: {device.temperature}°C</p> : null}
+                                    </div>
                                 </li>
                             ) : null
                         ))}

@@ -56,12 +56,12 @@ function App() {
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                console.log((clock.getTime() - wakeTimeDate.getTime())/1000/60, wakeRoutineTime);
+                console.log((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
 
-                if (bedTimeDate.getHours() - bedRoutineTime <= clock.getHours() && clock.getHours() <= bedTimeDate.getHours()) {
+                if (timeToDouble(bedTimeDate) - bedRoutineTime <= timeToDouble(clock) && timeToDouble(clock) <= timeToDouble(bedTimeDate)) {
                     newBrightness = clampAndRoundBrightness((100/bedRoutineTime)*timeUntilBedtime);
-                } else if (wakeTimeDate.getHours() - wakeRoutineTime <= clock.getHours() && clock.getHours() <= wakeTimeDate.getHours()) {
-                    newBrightness = clampAndRoundBrightness((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
+                } else if (timeToDouble(wakeTimeDate) - wakeRoutineTime <= timeToDouble(clock) && timeToDouble(clock) <= timeToDouble(wakeTimeDate)) {
+                    newBrightness = clampAndRoundBrightness((100/wakeRoutineTime)*((timeToDouble(clock) - timeToDouble(wakeTimeDate)) + wakeRoutineTime));
                 }
 
                 device.setBrightness(newBrightness);
@@ -82,6 +82,12 @@ function App() {
         });
     }
 
+
+    function timeToDouble(time: Date){
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        return hours + minutes / 60;
+    }
 
     function clampAndRoundBrightness(brightness: number) {
         return Math.round(Math.min(100, Math.max(0, brightness)));
