@@ -12,6 +12,8 @@ import { Device, Lamp, Ac, Blinds  } from './classes'
 import initialDevices from './Controllers/IkeaAPI'
 import "bootstrap/dist/css/bootstrap.css";
 
+import ReportPage from './Components/ReportPage/ReportPage'
+
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
@@ -56,7 +58,7 @@ function App() {
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                console.log((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
+                // console.log((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
 
                 if (timeToDouble(bedTimeDate) - bedRoutineTime <= timeToDouble(clock) && timeToDouble(clock) <= timeToDouble(bedTimeDate)) {
                     newBrightness = clampAndRoundBrightness((100/bedRoutineTime)*timeUntilBedtime);
@@ -102,6 +104,10 @@ function App() {
 
                     <Route path="/" element={
                         <StatusPage devices={devices} setDevices={setDevices} />
+                    } />
+
+                    <Route path="/report" element={
+                        <ReportPage />
                     } />
 
                     <Route path="/settings" element={
