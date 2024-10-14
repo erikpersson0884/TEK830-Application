@@ -75,3 +75,9 @@ body {
   min-height: 100vh;
 }
 
+
+ /* FUCKING BOOTSTRAP CSS FIX */
+
+ body p {
+  margin: 0;
+ }

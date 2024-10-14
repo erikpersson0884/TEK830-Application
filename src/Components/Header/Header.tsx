@@ -8,7 +8,7 @@ const Header = () => {
         {
             name: "Home",
             link: "/"
-        }
+        },
         {
             name: "Sleep Report",
             link: "/report"
@@ -31,7 +31,7 @@ const Header = () => {
                         <Link to={item.link}> {item.name} </Link>
                     </li>
                 )}
-            </ul>
+                </ul>
         </div>
     )
 }
