@@ -15,14 +15,19 @@ const ClockPic = (
   ) {
     throw new Error("Invalid minute selected");
   }
+  // 30 degrees per hour, additionally the graphics starts from an angle that equals hour 3
   let startAngle: number =
-    ((startHour % 12) * 30 + 0.5 * startMinute) * (180 / Math.PI);
-  let endAngle: number =
-    ((stopHour % 12) * 30 + 0.5 * stopMinute) * (180 / Math.PI);
+    (((12 - (startHour % 12)) * 30 + 90) * Math.PI) / 180; // Graphics count angels in the opposite direction so (12 - starthour)
+  let endAngle: number = (((12 - (stopHour % 12)) * 30 + 90) * Math.PI) / 180;
+  if (startAngle > endAngle) {
+    let temp: number = startAngle;
+    startAngle = endAngle;
+    endAngle = temp;
+  }
   let centerX: number = 32;
   let centerY: number = 32;
   let radius: number = 30;
-  let largeArc: number = endAngle - startAngle <= Math.PI ? 1 : 0;
+  let largeArc: number = endAngle - startAngle <= Math.PI ? 0 : 1;
   return (
     <svg
       version="1.0"
