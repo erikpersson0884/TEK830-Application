@@ -15,7 +15,7 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
-    const clockSpeed = 100;
+    const clockSpeed = 10;
     const [clock, setClock] = useState(new Date("2021-10-10T04:00:00"));
 
 
@@ -56,13 +56,7 @@ function App() {
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                console.log((100/wakeRoutineTime)*((clock.getTime() - wakeTimeDate.getTime())/1000/60 + wakeRoutineTime));
-
-                if (timeToDouble(bedTimeDate) - bedRoutineTime <= timeToDouble(clock) && timeToDouble(clock) <= timeToDouble(bedTimeDate)) {
-                    newBrightness = clampAndRoundBrightness((100/bedRoutineTime)*timeUntilBedtime);
-                } else if (timeToDouble(wakeTimeDate) - wakeRoutineTime <= timeToDouble(clock) && timeToDouble(clock) <= timeToDouble(wakeTimeDate)) {
-                    newBrightness = clampAndRoundBrightness((100/wakeRoutineTime)*((timeToDouble(clock) - timeToDouble(wakeTimeDate)) + wakeRoutineTime));
-                }
+                newBrightness = lightBrightness(clock, bedTimeDate, wakeTimeDate, bedRoutineTime, wakeRoutineTime);
 
                 device.setBrightness(newBrightness);
             }
@@ -76,12 +70,29 @@ function App() {
             }
 
             // Morning routine
- 
-
 
         });
     }
 
+
+    function lightBrightness(time: Date, bedTime: Date, wakeTime: Date, bedRoutineTime: number, wakeRoutineTime: number) {
+    var brightness = 0;
+    var t = timeToDouble(time);
+    var b = timeToDouble(bedTime);
+    var w = timeToDouble(wakeTime);
+    var bedRoutineTime_hours = bedRoutineTime / 60;
+    var wakeRoutineTime_hours = wakeRoutineTime / 60;
+
+    if (0 <= t && t < 12) {
+        brightness = (100 / wakeRoutineTime_hours) * (t - w + wakeRoutineTime_hours);
+    } else if (12 <= t && t <= 24) {
+        brightness = (100 / bedRoutineTime_hours) * (b - t);
+    } 
+    
+    brightness = clampAndRoundBrightness(brightness);
+
+    return brightness;
+    }
 
     function timeToDouble(time: Date){
         const hours = time.getHours();
