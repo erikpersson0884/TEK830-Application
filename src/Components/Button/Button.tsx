@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import "../StatusPage/StatusPage.css";
 interface Props {
   children: ReactNode;
   styling: string;

@@ -1,39 +1,17 @@
 import React from "react";
-import Button from "../Button/Button";
-import ClockPic from "./ClockPic";
 import "../SettingsPage/SettingsPage.css";
-import { useState } from "react";
 import ClockPrompt from "./ClockPrompt";
+import { Time } from "../StatusPage/ContentPane/ContentPane";
 interface Props {
-  startHour: number;
-  startMinute: number;
-  stopHour: number;
-  stopMinute: number;
+  updateTime: (time: Time) => void;
 }
 
-const Clock = ({
-  startHour = 0,
-  startMinute = 0,
-  stopHour = 0,
-  stopMinute = 0,
-}: Props) => {
-  var modal = document.getElementById("clockModal");
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => useState(false);
-  const handleShow = () => useState(true);
+const Clock = ({ updateTime }: Props) => {
   return (
     <>
       <div
-        className="h-60 clock text-white"
-        children={
-          <ClockPrompt
-            startHour={startHour}
-            startMinute={startMinute}
-            stopHour={stopHour}
-            stopMinute={stopMinute}
-          />
-        }
+        className="h-60 text-white"
+        children={<ClockPrompt updateTime={updateTime} />}
       />
     </>
   );
