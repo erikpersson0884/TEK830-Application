@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../StatusPage/StatusPage.css";
 import React from "react";
 import Button from "../Button/Button";
 import Modal from "./Modal";
@@ -6,16 +7,9 @@ import ClockPic from "./ClockPic";
 interface Props {
   startHour: number;
   startMinute: number;
-  stopHour: number;
-  stopMinute: number;
 }
 
-const ClockPrompt = ({
-  startHour,
-  startMinute,
-  stopHour,
-  stopMinute,
-}: Props) => {
+const ClockPrompt = ({ startHour, startMinute }: Props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -28,7 +22,7 @@ const ClockPrompt = ({
     stopHour: number,
     stopMinute: number
   ) => {
-    return ClockPic(startHour, startMinute, stopHour, stopMinute);
+    return ClockPic(startHour, startMinute);
   };
 
   const handleOpen = () => {
@@ -38,19 +32,20 @@ const ClockPrompt = ({
   return (
     <div
       style={{
-        height: "100%",
+        height: "75%",
+        width: "75%",
         textAlign: "center",
         display: "block",
-        padding: 30,
         margin: "auto",
       }}
+      className="clock"
     >
       <Button
-        styling="btn h-100 w-100"
+        styling="btn clock h-100 w-100"
         onClicked={() => {
           handleOpen();
         }}
-        children={ClockPic(startHour, startMinute, stopHour, stopMinute)}
+        children={ClockPic(startHour, startMinute)}
       />
       <Modal isOpen={open}>
         <div className="modalContainer">

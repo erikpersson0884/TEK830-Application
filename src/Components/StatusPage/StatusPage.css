@@ -11,6 +11,10 @@
   border-radius: 1rem;
   background-color: #616278;
 }
+
+.clock {
+  padding: 0;
+}
 .clock:hover {
   border-radius: 2rem;
   background-color: #616278;

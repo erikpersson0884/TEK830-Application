@@ -7,16 +7,9 @@ import ClockPrompt from "./ClockPrompt";
 interface Props {
   startHour: number;
   startMinute: number;
-  stopHour: number;
-  stopMinute: number;
 }
 
-const Clock = ({
-  startHour = 0,
-  startMinute = 0,
-  stopHour = 0,
-  stopMinute = 0,
-}: Props) => {
+const Clock = ({ startHour = 0, startMinute = 0 }: Props) => {
   var modal = document.getElementById("clockModal");
   const [show, setShow] = useState(false);
 
@@ -25,14 +18,9 @@ const Clock = ({
   return (
     <>
       <div
-        className="h-60 clock text-white"
+        className="h-60 text-white"
         children={
-          <ClockPrompt
-            startHour={startHour}
-            startMinute={startMinute}
-            stopHour={stopHour}
-            stopMinute={stopMinute}
-          />
+          <ClockPrompt startHour={startHour} startMinute={startMinute} />
         }
       />
     </>

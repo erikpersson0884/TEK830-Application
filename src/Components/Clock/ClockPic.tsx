@@ -1,12 +1,9 @@
 import React from "react";
 import "../SettingsPage/SettingsPage.css";
 
-const ClockPic = (
-  startHour: number,
-  startMinute: number,
-  stopHour: number,
-  stopMinute: number
-) => {
+const ClockPic = (startHour: number, startMinute: number) => {
+  let stopHour: number = startHour + 1;
+  let stopMinute: number = startMinute;
   if ((startHour || stopHour) > 23 || (startHour || stopHour) < 0) {
     throw new Error("Invalid hour selected");
   } else if (
@@ -16,9 +13,8 @@ const ClockPic = (
     throw new Error("Invalid minute selected");
   }
   // 30 degrees per hour, additionally the graphics starts from an angle that equals hour 3
-  let startAngle: number =
-    (((12 - (startHour % 12)) * 30 + 90) * Math.PI) / 180; // Graphics count angels in the opposite direction so (12 - starthour)
-  let endAngle: number = (((12 - (stopHour % 12)) * 30 + 90) * Math.PI) / 180;
+  let startAngle: number = getAngle(startHour, startMinute);
+  let endAngle: number = getAngle(stopHour, stopMinute);
   if (startAngle > endAngle) {
     let temp: number = startAngle;
     startAngle = endAngle;
@@ -97,6 +93,12 @@ const ClockPic = (
       </g>
     </svg>
   );
+};
+
+const getAngle = (hour: number, minute: number) => {
+  let hourEffect = (-hour % 12) * 30 + 90;
+  let minuteEffect = -(minute % 60) * 0.5;
+  return ((hourEffect + minuteEffect) * Math.PI) / 180;
 };
 
 export default ClockPic;

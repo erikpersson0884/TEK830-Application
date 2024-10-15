@@ -7,8 +7,8 @@ const ContentPane = () => {
   return (
     <>
       <div className="container text-white h-100">
-        <LightTimer startHour={19} startMinute={8} />
-        <Clock startHour={19} startMinute={8} stopHour={22} stopMinute={20} />
+        <LightTimer startHour={22} startMinute={0} />
+        <Clock startHour={22} startMinute={0} />
         <div className="m-auto row" style={{ height: "25%" }}>
           <LightButtons />
         </div>
