@@ -1,11 +1,10 @@
 import React from "react";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, children }) => {
   if (!isOpen) return null;
 
   return (
     <div
-      onClick={onClose}
       style={{
         position: "fixed",
         top: 0,
@@ -21,8 +20,8 @@ const Modal = ({ isOpen, onClose, children }) => {
       <div
         style={{
           background: "black",
-          height: "50%",
-          width: "40%",
+          height: "40%",
+          width: "25%",
           margin: "auto",
           padding: "2%",
           border: "2px solid #000",

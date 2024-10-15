@@ -22,6 +22,15 @@ const ClockPrompt = ({
     setOpen(false);
   };
 
+  const setTime = (
+    startHour: number,
+    startMinute: number,
+    stopHour: number,
+    stopMinute: number
+  ) => {
+    return ClockPic(startHour, startMinute, stopHour, stopMinute);
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -43,8 +52,27 @@ const ClockPrompt = ({
         }}
         children={ClockPic(startHour, startMinute, stopHour, stopMinute)}
       />
-      <Modal isOpen={open} onClose={handleClose}>
-        <h1>Close</h1>
+      <Modal isOpen={open}>
+        <div className="modalContainer">
+          <img
+            className="exitButton"
+            src="src\assets\reject.png"
+            alt="close"
+            onClick={() => {
+              handleClose();
+            }}
+          />
+        </div>
+        <form style={{ height: "50%", width: "50%", margin: "auto" }}>
+          <input
+            className="timeInput"
+            style={{ fontSize: "150%" }}
+            type="time"
+            name="timeInput"
+            value="22:00"
+            size={10}
+          ></input>
+        </form>
       </Modal>
     </div>
   );

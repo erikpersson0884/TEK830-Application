@@ -29,6 +29,33 @@
   background-color: #ffcc00;
 }
 
+.timeInput {
+  margin: auto;
+  width: 80%;
+  height: 50%;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.exitButton {
+  margin-left: auto;
+  border-radius: 1rem;
+  background-color: white;
+  width: 8%;
+  height: 8%;
+}
+
+.exitButton:hover {
+  margin-left: auto;
+  border-radius: 1rem;
+  background-color: rgb(149, 149, 149);
+  width: 8%;
+  height: 8%;
+}
+
 .modal {
   display: none;
   position: fixed;
