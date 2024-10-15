@@ -15,15 +15,12 @@ const ClockPic = (startHour: number, startMinute: number) => {
   // 30 degrees per hour, additionally the graphics starts from an angle that equals hour 3
   let startAngle: number = getAngle(startHour, startMinute);
   let endAngle: number = getAngle(stopHour, stopMinute);
-  if (startAngle > endAngle) {
-    let temp: number = startAngle;
-    startAngle = endAngle;
-    endAngle = temp;
+  if (startAngle < 0 && endAngle > 0) {
+    endAngle = Math.PI - endAngle;
   }
   let centerX: number = 32;
   let centerY: number = 32;
   let radius: number = 30;
-  let largeArc: number = endAngle - startAngle <= Math.PI ? 0 : 1;
   return (
     <svg
       version="1.0"
@@ -54,16 +51,16 @@ const ClockPic = (startHour: number, startMinute: number) => {
             centerX,
             centerY,
             "L",
-            centerX + Math.cos(startAngle) * radius,
-            centerY - Math.sin(startAngle) * radius,
+            centerX + Math.cos(endAngle) * radius,
+            centerY - Math.sin(endAngle) * radius,
             "A",
             radius,
             radius,
             0,
-            largeArc,
             0,
-            centerX + Math.cos(endAngle) * radius,
-            centerY - Math.sin(endAngle) * radius,
+            0,
+            centerX + Math.cos(startAngle) * radius,
+            centerY - Math.sin(startAngle) * radius,
             "L",
             centerX,
             centerY,
@@ -95,6 +92,7 @@ const ClockPic = (startHour: number, startMinute: number) => {
   );
 };
 
+// Takes the time and returns the angle of the hour hand
 const getAngle = (hour: number, minute: number) => {
   let hourEffect = (-hour % 12) * 30 + 90;
   let minuteEffect = -(minute % 60) * 0.5;

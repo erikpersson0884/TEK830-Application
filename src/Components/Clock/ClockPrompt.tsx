@@ -11,18 +11,21 @@ interface Props {
 
 const ClockPrompt = ({ startHour, startMinute }: Props) => {
   const [open, setOpen] = React.useState(false);
+  const [svg, setSvg] = React.useState(ClockPic(startHour, startMinute));
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const setTime = (
-    startHour: number,
-    startMinute: number,
-    stopHour: number,
-    stopMinute: number
-  ) => {
-    return ClockPic(startHour, startMinute);
+  const setClock = (startHour: number, startMinute: number) => {
+    setSvg(ClockPic(startHour, startMinute));
+  };
+
+  const timeToNumber = (time: string) => {
+    let numbers: string[] = time.split(":");
+    let hour: number = Number(numbers[0]);
+    let minute: number = Number(numbers[1]);
+    return [hour, minute];
   };
 
   const handleOpen = () => {
@@ -32,11 +35,12 @@ const ClockPrompt = ({ startHour, startMinute }: Props) => {
   return (
     <div
       style={{
-        height: "75%",
-        width: "75%",
+        height: "50%",
+        width: "50%",
         textAlign: "center",
         display: "block",
         margin: "auto",
+        marginTop: "10%",
       }}
       className="clock"
     >
@@ -45,7 +49,7 @@ const ClockPrompt = ({ startHour, startMinute }: Props) => {
         onClicked={() => {
           handleOpen();
         }}
-        children={ClockPic(startHour, startMinute)}
+        children={svg}
       />
       <Modal isOpen={open}>
         <div className="modalContainer">
@@ -65,6 +69,10 @@ const ClockPrompt = ({ startHour, startMinute }: Props) => {
             type="time"
             name="timeInput"
             value="22:00"
+            onChange={(e) => {
+              let value: number[] = timeToNumber(e.target.value);
+              setClock(value[0], value[1]);
+            }}
             size={10}
           ></input>
         </form>
