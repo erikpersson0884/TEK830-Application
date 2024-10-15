@@ -9,11 +9,11 @@
 }
 .buttonText:hover {
   border-radius: 1rem;
-  background-color: #d2a800;
+  background-color: #616278;
 }
 .clock:hover {
   border-radius: 2rem;
-  background-color: #d2a800;
+  background-color: #616278;
 }
 .split {
   width: 50%;
@@ -26,7 +26,7 @@
 .right {
   right: 0;
   padding: 0px;
-  background-color: #ffcc00;
+  background-color: #444554;
 }
 
 .timeInput {
