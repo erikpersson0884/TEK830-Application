@@ -59,6 +59,13 @@ function App() {
                 newBrightness = lightBrightness(clock, bedTimeDate, wakeTimeDate, bedRoutineTime, wakeRoutineTime);
 
                 device.setBrightness(newBrightness);
+
+                if (newBrightness == 0) {
+                    device.powerOff();
+                } else {
+                    device.powerOn();
+                }
+
             }
             if (device instanceof Ac && device.temperature > 18) {
                 // const newTemperature = Math.max(18,Math.round((18/bedRoutineTime)*timeUntilBedtime));
