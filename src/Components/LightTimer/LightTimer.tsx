@@ -3,7 +3,7 @@ import { useTimeContext } from "./Contexts";
 
 const LightTimer = () => {
   let time = useTimeContext();
-  let hour: number = (time.hour - 1 + 24) % 24;
+  let hour: number = (time.hour - 2 + 24) % 24;
   let minute: number = time.minute;
   let hourTx: string = hour.toString();
   let minuteTx: string;

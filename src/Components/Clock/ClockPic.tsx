@@ -2,7 +2,7 @@ import React from "react";
 import "../SettingsPage/SettingsPage.css";
 
 const ClockPic = (startHour: number, startMinute: number) => {
-  let stopHour: number = startHour + 1;
+  let stopHour: number = startHour - 2;
   let stopMinute: number = startMinute;
   let startAngle: number = getAngle(startHour, startMinute);
   let endAngle: number = getAngle(stopHour, stopMinute);
@@ -49,7 +49,7 @@ const ClockPic = (startHour: number, startMinute: number) => {
             radius,
             0,
             0,
-            0,
+            1,
             centerX + Math.cos(startAngle) * radius,
             centerY - Math.sin(startAngle) * radius,
             "L",
