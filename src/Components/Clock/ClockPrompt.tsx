@@ -64,6 +64,7 @@ const ClockPrompt = ({ updateTime }: Props) => {
             }}
           />
         </div>
+        <h2>When would you like to sleep</h2>
         <form style={{ height: "50%", width: "50%", margin: "auto" }}>
           <input
             className="timeInput"
