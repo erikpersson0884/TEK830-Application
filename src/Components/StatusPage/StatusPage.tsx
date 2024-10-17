@@ -17,7 +17,7 @@ const StatusPage: React.FC<{
           devices={devices}
           setDevices={setDevices}
         />
-        <div className="split right w-50">
+        <div className="split right">
           <ContentPane />
         </div>
       </div>
