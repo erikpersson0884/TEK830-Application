@@ -3,7 +3,7 @@ import { useTimeContext } from "./Contexts";
 
 const LightTimer = () => {
   let time = useTimeContext();
-  let hour: number = time.hour;
+  let hour: number = time.hour - 2;
   let minute: number = time.minute;
 
   if (hour > 23 || hour < 0) {
