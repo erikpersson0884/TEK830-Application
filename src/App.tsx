@@ -12,6 +12,8 @@ import { Device, Lamp, Ac, Blinds  } from './classes'
 import initialDevices from './Controllers/IkeaAPI'
 import "bootstrap/dist/css/bootstrap.css";
 
+import ReportPage from './Components/ReportPage/ReportPage'
+
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
@@ -120,6 +122,10 @@ function App() {
 
                     <Route path="/" element={
                         <StatusPage devices={devices} setDevices={setDevices} />
+                    } />
+
+                    <Route path="/report" element={
+                        <ReportPage />
                     } />
 
                     <Route path="/settings" element={
