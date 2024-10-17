@@ -43,6 +43,7 @@ const DevicePane: React.FC<{className: String, devices: Device[], setDevices: Re
                                         <p>{device.getIsPoweredOn() ? "Is On" : "Is Off"}</p>
                                         {device instanceof Lamp ? <p>Brightness: {device.brightness}</p> : null}
                                         {device instanceof Ac ? <p>Temperature: {device.temperature}°C</p> : null}
+                                        {device instanceof Blinds ? <p>{device.isOpen ? "Open" : "Closed"}</p> : null}
                                     </div>
                                 </li>
                             ) : null

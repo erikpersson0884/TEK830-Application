@@ -47,12 +47,12 @@ function App() {
 
         const timeUntilBedtime = (bedTimeDate.getTime() - clock.getTime()) / 1000 / 60; // time in minutes
 
-        const bedRoutineTime = 2*60; // 2 hours before bedtime
-        const wakeRoutineTime = 60; // 1 hours for lights to brighten
+        const bedRoutineTime = 2    // 2 hours for lights to dim
+        const wakeRoutineTime = 1; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
             
-            // Bedtime routine
+            // Device controls
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
@@ -67,38 +67,68 @@ function App() {
                 }
 
             }
-            if (device instanceof Ac && device.temperature > 18) {
-                // const newTemperature = Math.max(18,Math.round((18/bedRoutineTime)*timeUntilBedtime));
+            if (device instanceof Ac) {
+                let newTemperature = 0;
 
-                // device.setTemperature(newTemperature);
-            }
-            if (device instanceof Blinds && timeUntilBedtime < 30) {
-                device.closeBlinds();
-            }
+                newTemperature = temperatureCalculator(clock, bedTimeDate, wakeTimeDate, bedRoutineTime, wakeRoutineTime);
 
-            // Morning routine
+                device.setTemperature(newTemperature);
+
+            }
+            if (device instanceof Blinds) {
+                let t = timeToDouble(clock);
+                let bedRutineStart = timeToDouble(bedTimeDate) - bedRoutineTime
+                let wakeRutineStart = timeToDouble(wakeTimeDate) - wakeRoutineTime
+
+                console.log(bedRoutineTime)
+
+                // console.log(bedRutineStart - 10, Math.round(t) , bedRutineStart +10)
+
+                if (bedRutineStart - 10 <= t && t <= bedRutineStart +10) {
+                    device.openBlinds();
+                    console.log("opening blinds")
+                } else if (wakeRutineStart - 10 <= t && t <= wakeRutineStart +10) {
+                    device.closeBlinds();
+                    console.log("closing blinds")
+                } 
+            }
 
         });
     }
 
 
     function lightBrightness(time: Date, bedTime: Date, wakeTime: Date, bedRoutineTime: number, wakeRoutineTime: number) {
-    var brightness = 0;
-    var t = timeToDouble(time);
-    var b = timeToDouble(bedTime);
-    var w = timeToDouble(wakeTime);
-    var bedRoutineTime_hours = bedRoutineTime / 60;
-    var wakeRoutineTime_hours = wakeRoutineTime / 60;
+        var brightness = 0;
+        var t = timeToDouble(time);
+        var b = timeToDouble(bedTime);
+        var w = timeToDouble(wakeTime);
 
-    if (0 <= t && t < 12) {
-        brightness = (100 / wakeRoutineTime_hours) * (t - w + wakeRoutineTime_hours);
-    } else if (12 <= t && t <= 24) {
-        brightness = (100 / bedRoutineTime_hours) * (b - t);
-    } 
-    
-    brightness = clampAndRoundBrightness(brightness);
+        if (0 <= t && t < 12) {
+            brightness = (100 / wakeRoutineTime) * (t - w + wakeRoutineTime);
+        } else if (12 <= t && t <= 24) {
+            brightness = (100 / bedRoutineTime) * (b - t);
+        } 
+        
+        brightness = clampAndRound(brightness, 0, 100);
 
-    return brightness;
+        return brightness;
+    }
+
+    function temperatureCalculator(time: Date, bedTime: Date, wakeTime: Date, bedRoutineTime: number, wakeRoutineTime: number) {
+        var temperature = 0;
+        var t = timeToDouble(time);
+        var b = timeToDouble(bedTime);
+        var w = timeToDouble(wakeTime);
+        
+        if (0 <= t && t < 12) {
+            temperature = 18 + (4 / wakeRoutineTime) * (t - w + wakeRoutineTime);
+        } else if (12 <= t && t <= 24) {
+            temperature = 18 + (4 / bedRoutineTime) * (b - t);
+        }
+
+        temperature = clampAndRound(temperature, 18, 22);
+
+        return temperature;
     }
 
     function timeToDouble(time: Date){
@@ -107,8 +137,8 @@ function App() {
         return hours + minutes / 60;
     }
 
-    function clampAndRoundBrightness(brightness: number) {
-        return Math.round(Math.min(100, Math.max(0, brightness)));
+    function clampAndRound(brightness: number, min: number, max: number) {
+        return Math.round(Math.min(max, Math.max(min, brightness)));
     }
 
     return (
