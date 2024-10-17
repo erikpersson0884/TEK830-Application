@@ -80,16 +80,10 @@ function App() {
                 let bedRutineStart = timeToDouble(bedTimeDate) - bedRoutineTime
                 let wakeRutineStart = timeToDouble(wakeTimeDate) - wakeRoutineTime
 
-                console.log(bedRoutineTime)
-
-                // console.log(bedRutineStart - 10, Math.round(t) , bedRutineStart +10)
-
                 if (bedRutineStart - 10 <= t && t <= bedRutineStart +10) {
                     device.openBlinds();
-                    console.log("opening blinds")
                 } else if (wakeRutineStart - 10 <= t && t <= wakeRutineStart +10) {
                     device.closeBlinds();
-                    console.log("closing blinds")
                 } 
             }
 
