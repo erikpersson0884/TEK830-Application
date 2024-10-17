@@ -1,18 +1,33 @@
 import React from "react";
-import Clock from "../Clock/Clock";
-import DimmingTimer from "./DimmingTimer";
-import Button from "../Button/Button";
-interface Props {
-  startHour: number;
-  startMinute: number;
-}
+import { useTimeContext } from "./Contexts";
 
-const LightTimer = ({ startHour, startMinute }: Props) => {
+const LightTimer = () => {
+  let time = useTimeContext();
+  let hour: number = time.hour;
+  let minute: number = time.minute;
+
+  if (hour > 23 || hour < 0) {
+    throw new Error("Invalid hour selected");
+  } else if (minute > 59 || minute < 0) {
+    throw new Error("Invalid minute selected");
+  }
+  let hourTx: string = hour.toString();
+  let minuteTx: string;
+  if (minute < 10 && minute >= 0) {
+    minuteTx = "0" + minute.toString();
+  } else {
+    minuteTx = minute.toString();
+  }
+
   return (
     <>
       <h1
-        className="h-25 text-white text-center m-auto"
-        children={DimmingTimer(startHour, startMinute)}
+        className="h-20 text-white text-center m-auto"
+        children={
+          <div>
+            Dimming starts at {hourTx}:{minuteTx}
+          </div>
+        }
       ></h1>
     </>
   );
