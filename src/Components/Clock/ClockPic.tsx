@@ -2,7 +2,7 @@ import React from "react";
 import "../SettingsPage/SettingsPage.css";
 
 const ClockPic = (startHour: number, startMinute: number) => {
-  let stopHour: number = startHour + 2;
+  let stopHour: number = startHour + 1;
   let stopMinute: number = startMinute;
   if ((startHour || stopHour) > 23 || (startHour || stopHour) < 0) {
     throw new Error("Invalid hour selected");
