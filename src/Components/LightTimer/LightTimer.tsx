@@ -3,14 +3,8 @@ import { useTimeContext } from "./Contexts";
 
 const LightTimer = () => {
   let time = useTimeContext();
-  let hour: number = time.hour - 1;
+  let hour: number = (time.hour - 1 + 24) % 24;
   let minute: number = time.minute;
-
-  if (hour > 23 || hour < 0) {
-    throw new Error("Invalid hour selected");
-  } else if (minute > 59 || minute < 0) {
-    throw new Error("Invalid minute selected");
-  }
   let hourTx: string = hour.toString();
   let minuteTx: string;
   if (minute < 10 && minute >= 0) {

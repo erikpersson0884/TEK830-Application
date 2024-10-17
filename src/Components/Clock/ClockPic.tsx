@@ -4,19 +4,10 @@ import "../SettingsPage/SettingsPage.css";
 const ClockPic = (startHour: number, startMinute: number) => {
   let stopHour: number = startHour + 1;
   let stopMinute: number = startMinute;
-  if ((startHour || stopHour) > 23 || (startHour || stopHour) < 0) {
-    throw new Error("Invalid hour selected");
-  } else if (
-    (startMinute || stopMinute) > 59 ||
-    (startMinute || stopMinute) < 0
-  ) {
-    throw new Error("Invalid minute selected");
-  }
-  // 30 degrees per hour, additionally the graphics starts from an angle that equals hour 3
   let startAngle: number = getAngle(startHour, startMinute);
   let endAngle: number = getAngle(stopHour, stopMinute);
   if (startAngle < 0 && endAngle > 0) {
-    endAngle = Math.PI - endAngle;
+    endAngle = endAngle - 2 * Math.PI;
   }
   let centerX: number = 32;
   let centerY: number = 32;
@@ -95,7 +86,7 @@ const ClockPic = (startHour: number, startMinute: number) => {
 // Takes the time and returns the angle of the hour hand
 const getAngle = (hour: number, minute: number) => {
   let hourEffect = (-hour % 12) * 30 + 90;
-  let minuteEffect = -(minute % 60) * 0.5;
+  let minuteEffect = (-minute % 60) * 0.5;
   return ((hourEffect + minuteEffect) * Math.PI) / 180;
 };
 
