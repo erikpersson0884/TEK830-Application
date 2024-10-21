@@ -53,15 +53,15 @@ function App() {
         
         devices.forEach((device) => {
             
-            var t = timeToDouble(clock);
-            var b = timeToDouble(bedTimeDate);
-            var w = timeToDouble(wakeTimeDate);
+            var timeDouble = timeToDouble(clock);
+            var bedTimeDouble = timeToDouble(bedTimeDate);
+            var wakeTimeDouble = timeToDouble(wakeTimeDate);
 
             // Device controls
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                newBrightness = lightBrightness(t, b, w, bedRoutineTime, wakeRoutineTime);
+                newBrightness = lightBrightness(timeDouble, bedTimeDouble, wakeTimeDouble, bedRoutineTime, wakeRoutineTime);
 
                 device.setBrightness(newBrightness);
 
@@ -75,18 +75,18 @@ function App() {
             if (device instanceof Ac) {
                 let newTemperature = 0;
 
-                newTemperature = temperatureCalculator(t, b, w, bedRoutineTime, wakeRoutineTime);
+                newTemperature = temperatureCalculator(timeDouble, bedTimeDouble, wakeTimeDouble, bedRoutineTime, wakeRoutineTime);
 
                 device.setTemperature(newTemperature);
 
             }
             if (device instanceof Blinds) {
-                let bedRutineStart = b - bedRoutineTime
-                let wakeRutineStart = w - wakeRoutineTime
+                let bedRutineStart = bedTimeDouble - bedRoutineTime
+                let wakeRutineStart = wakeTimeDouble - wakeRoutineTime
 
-                if (bedRutineStart - 10 <= t && t <= bedRutineStart +10) {
+                if (bedRutineStart - 10 <= timeDouble && timeDouble <= bedRutineStart +10) {
                     device.openBlinds();
-                } else if (wakeRutineStart - 10 <= t && t <= wakeRutineStart +10) {
+                } else if (wakeRutineStart - 10 <= timeDouble && timeDouble <= wakeRutineStart +10) {
                     device.closeBlinds();
                 } 
             }
