@@ -9,7 +9,7 @@ interface StatusDevice extends Device {
 
 const DevicePane: React.FC<{className: String, devices: Device[], setDevices: React.Dispatch<React.SetStateAction<Device[]>> }> = ({className, devices, setDevices }) => { 
   
-    let deviceConverter = [
+    let deviceConverter: {name:string, type: typeof Lamp | typeof Ac | typeof Blinds}[] = [
         {name: "Lights", type: Lamp},
         {name: "Temperature", type: Ac},
         {name: "Blinds", type: Blinds},

@@ -6,8 +6,11 @@ import DeviceSettingsPopup from '../deviceSettingsPopup/deviceSettingsPopup';
 interface DeviceProps {
     device: Device;
     deviceType: {
+
         name: string;
-        type: typeof Device;
+
+        type: typeof Lamp | typeof Ac | typeof Blinds;
+
     };
 }
 
