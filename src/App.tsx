@@ -47,16 +47,21 @@ function App() {
 
         const timeUntilBedtime = (bedTimeDate.getTime() - clock.getTime()) / 1000 / 60; // time in minutes
 
+        // TODO: These should also be global variables later
         const bedRoutineTime = 2    // 2 hours for lights to dim
         const wakeRoutineTime = 1; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
             
+            var t = timeToDouble(clock);
+            var b = timeToDouble(bedTimeDate);
+            var w = timeToDouble(wakeTimeDate);
+
             // Device controls
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                newBrightness = lightBrightness(clock, bedTimeDate, wakeTimeDate, bedRoutineTime, wakeRoutineTime);
+                newBrightness = lightBrightness(t, b, w, bedRoutineTime, wakeRoutineTime);
 
                 device.setBrightness(newBrightness);
 
@@ -70,15 +75,14 @@ function App() {
             if (device instanceof Ac) {
                 let newTemperature = 0;
 
-                newTemperature = temperatureCalculator(clock, bedTimeDate, wakeTimeDate, bedRoutineTime, wakeRoutineTime);
+                newTemperature = temperatureCalculator(t, b, w, bedRoutineTime, wakeRoutineTime);
 
                 device.setTemperature(newTemperature);
 
             }
             if (device instanceof Blinds) {
-                let t = timeToDouble(clock);
-                let bedRutineStart = timeToDouble(bedTimeDate) - bedRoutineTime
-                let wakeRutineStart = timeToDouble(wakeTimeDate) - wakeRoutineTime
+                let bedRutineStart = b - bedRoutineTime
+                let wakeRutineStart = w - wakeRoutineTime
 
                 if (bedRutineStart - 10 <= t && t <= bedRutineStart +10) {
                     device.openBlinds();
@@ -91,11 +95,8 @@ function App() {
     }
 
 
-    function lightBrightness(time: Date, bedTime: Date, wakeTime: Date, bedRoutineTime: number, wakeRoutineTime: number) {
+    function lightBrightness(t: number, b: number, w: number, bedRoutineTime: number, wakeRoutineTime: number) {
         var brightness = 0;
-        var t = timeToDouble(time);
-        var b = timeToDouble(bedTime);
-        var w = timeToDouble(wakeTime);
 
         if (0 <= t && t < 12) {
             brightness = (100 / wakeRoutineTime) * (t - w + wakeRoutineTime);
@@ -108,16 +109,17 @@ function App() {
         return brightness;
     }
 
-    function temperatureCalculator(time: Date, bedTime: Date, wakeTime: Date, bedRoutineTime: number, wakeRoutineTime: number) {
+    function temperatureCalculator(t: number, b: number, w: number, bedRoutineTime: number, wakeRoutineTime: number) {
         var temperature = 0;
-        var t = timeToDouble(time);
-        var b = timeToDouble(bedTime);
-        var w = timeToDouble(wakeTime);
+        // TODO: Temperature settings, will be set to global variables later
+        var minTemp = 18;
+        var maxTemp = 22;
+        var tempDiff = maxTemp - minTemp;
         
         if (0 <= t && t < 12) {
-            temperature = 18 + (4 / wakeRoutineTime) * (t - w + wakeRoutineTime);
+            temperature = minTemp + (tempDiff / wakeRoutineTime) * (t - w + wakeRoutineTime);
         } else if (12 <= t && t <= 24) {
-            temperature = 18 + (4 / bedRoutineTime) * (b - t);
+            temperature = minTemp + (tempDiff / bedRoutineTime) * (b - t);
         }
 
         temperature = clampAndRound(temperature, 18, 22);
