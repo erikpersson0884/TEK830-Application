@@ -1,0 +1,58 @@
+
+.deviceSettingsPopup {
+    background-color: rgb(41, 41, 41);
+    color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+
+    position: relative;
+
+    padding: 2rem 4rem;
+    border: #fff .1rem solid;
+}
+
+.deviceSettingsPopup header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+
+    width: 100%;
+}
+
+.deviceSettingsPopup .deviceName {
+    flex: 1;
+}
+
+.deviceSettingsPopup .deviceImage {
+    /* filter: invert(1); */
+    flex: 0;
+
+    height: 4rem;
+}
+
+.deviceSettingsPopup .closeButton {
+    background-color: rgb(92, 92, 92);
+    
+    border-left: .1rem solid #ffffff;
+    border-bottom: .1rem solid #ffffff;
+    border-bottom-left-radius: .5rem;
+}
+
+.deviceSettingsPopup .closeButton:hover {
+    background-color: rgb(21, 21, 21);
+
+}
+
+.deviceSettingsPopup .closeButton img {
+    height: 3rem;
+}
+
+.deviceSettingsPopup .slider {
+    width: 100%;
+}

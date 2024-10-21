@@ -4,12 +4,26 @@ export class Device {
     place: string;
     isPoweredOn: boolean;
     isIncluded: boolean;
+    followsSchedule: boolean;
 
     constructor(name: string, place: string, isPoweredOn: boolean, isIncluded: boolean) {
         this.name = name;
         this.place = place;
         this.isPoweredOn = isPoweredOn;
         this.isIncluded = isIncluded;
+        this.followsSchedule = true;
+    }
+
+    setFollowsSchedule(followsSchedule: boolean): void {
+        this.followsSchedule = followsSchedule;
+    }
+
+    getFollowsSchedule(): boolean {
+        return this.followsSchedule;
+    }
+
+    toggleFollowsSchedule(): void {
+        this.followsSchedule = !this.followsSchedule
     }
 
     powerOn(): void {
