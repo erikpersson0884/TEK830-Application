@@ -53,7 +53,8 @@ function App() {
         const wakeRoutineTime = 60; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
-            
+            if (!device.isIncluded || !device.followsSchedule) return;
+
             // Bedtime routine
             if (device instanceof Lamp) {
                 let newBrightness = 0;
