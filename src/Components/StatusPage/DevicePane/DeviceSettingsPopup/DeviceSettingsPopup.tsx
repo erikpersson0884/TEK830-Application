@@ -11,10 +11,23 @@ interface DeviceSettingsPopupProps {
 }
 
 const DeviceSettingsPopup: React.FC<DeviceSettingsPopupProps> = ({ device, closePopup }) => {
-    const initialSliderValue = (device instanceof Lamp) ? (device as Lamp).brightness : 
+    const initialSliderValue = 
+        (device instanceof Lamp) ? (device as Lamp).brightness : 
         (device instanceof Ac) ? (device as Ac).temperature : 0;
 
     const [sliderValue, setSliderValue] = React.useState<number>(initialSliderValue);
+
+    if (device instanceof Lamp) {
+        React.useEffect(() => {
+            if (device.followsSchedule) setSliderValue(device.brightness);
+        }, [device.followsSchedule, device.brightness]);
+
+    } else if (device instanceof Ac) {
+        React.useEffect(() => {
+            if (device.followsSchedule) setSliderValue(device.temperature);
+        }), [device.followsSchedule, device.temperature];
+    }
+
 
     function handleSlierChange(event: React.ChangeEvent<HTMLInputElement>): void {
         const newBrightness = parseInt(event.target.value);
@@ -38,24 +51,60 @@ const DeviceSettingsPopup: React.FC<DeviceSettingsPopupProps> = ({ device, close
                 <h2 className="deviceName">{device.name}</h2>
             </header>
 
+            {device instanceof Lamp ?
+                <div className="option">
+                    <p>Brightness:</p>
+
+                    <div className="inputDiv">
+                        <div className="colorIndicator"></div>
+                            <input 
+                                className="slider"
+                                type="range" 
+                                min="0" 
+                                max="100" 
+                                value={sliderValue} 
+                                onChange={(e) => handleSlierChange(e)} 
+                            />
+                        <div className="colorIndicator" style={{backgroundColor: device.color}} onClick={() => document.getElementById(`lampInput-${device.id}`)?.click()}></div>
+                        <input id={`lampInput-${device.id}`} className="lampColorInput" type="color" onChange={(e) => (device as Lamp).setColor(e.target.value)} />
+                    </div>
+                </div>
             
-            {device instanceof Lamp ? <p>Brightness:</p> : 
-            device instanceof Ac ? <p>Temperature:</p> : null}
-            {device instanceof Lamp || device instanceof Ac ? (
-                <input 
-                    className="slider"
-                    type="range" 
-                    min="0" 
-                    max="100" 
-                    value={sliderValue} 
-                    onChange={(e) => handleSlierChange(e)} 
-                />
-            ) : null
+            :
+
+            device instanceof Ac ? 
+                <div className="option">
+                    <p>Brightness:</p>
+
+                    <div className="inputDiv">
+                        <p>{device.minTemperature}°C</p>
+                        <input 
+                            className="slider"
+                            type="range" 
+                            min={device.minTemperature}
+                            max={device.maxTemperature}
+                            value={sliderValue} 
+                            onChange={(e) => handleSlierChange(e)} 
+                        />
+                        <p>{device.maxTemperature}°C</p>
+                    </div>
+                </div>
+                : 
+                null
+
             }
 
-            {!device.getFollowsSchedule() &&
-                <button onClick={() =>  device.toggleFollowsSchedule()}>Follow Schedule</button>
-            }
+
+            <div style={{width: "100%"}}>
+                 
+            <button 
+                onClick={() => device.toggleFollowsSchedule()} 
+                style={{ float: device.followsSchedule ? "left" : "right" }}
+            >
+                {device.followsSchedule ? "Unfollow Schedule" : "Follow Schedule" }
+            </button>
+            </div>
+
         </div>
     );
 };
