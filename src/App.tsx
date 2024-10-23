@@ -145,8 +145,8 @@ function App() {
     return (
         <div className='mobileSize'>
             <BrowserRouter basename='/TEK830-Application/'> 
-                <Header />
-                {clock.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                <Header/>
+                <p className='digitalClock'>{clock.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p> 
                 <Routes>
 
                     <Route path="/" element={

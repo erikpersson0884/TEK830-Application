@@ -59,6 +59,7 @@ const SettingsPage: React.FC<{ devices: Device[], setDevices: React.Dispatch<Rea
                                 <input 
                                     id={`device-${device.name}`}
                                     type="checkbox" 
+                                    
                                     checked={device.isIncluded} 
                                     onChange={(event) => toggleDeviceInclusion(event, device)}
                                 />
