@@ -1,9 +1,9 @@
 import React from "react";
 import "../SettingsPage/SettingsPage.css";
 import ClockPrompt from "./ClockPrompt";
-import { Time } from "../StatusPage/ContentPane/ContentPane";
+import { Time } from "../../Classes/Time";
 interface Props {
-  updateTime: (time: Time) => void;
+    updateTime: (time: Time) => void;
 }
 
 const Clock = ({ updateTime }: Props) => {

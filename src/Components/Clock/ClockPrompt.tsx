@@ -4,16 +4,16 @@ import React from "react";
 import Button from "../Button/Button";
 import Modal from "./Modal";
 import ClockPic from "./ClockPic";
-import { useTimeContext } from "../LightTimer/Contexts";
-import { Time } from "../StatusPage/ContentPane/ContentPane";
+import { TimeContext } from "../../Contexts";
+import { Time } from "../../Classes/Time";
 interface Props {
   updateTime: (time: Time) => void;
 }
 
 const ClockPrompt = ({ updateTime }: Props) => {
-  let time = useTimeContext();
+  let time = React.useContext(TimeContext);
   const [open, setOpen] = React.useState(false);
-  const [svg, setSvg] = React.useState(ClockPic(time.hour, time.minute));
+  const [svg, setSvg] = React.useState(ClockPic(time.hours, time.minutes));
 
   const handleClose = () => {
     setOpen(false);
@@ -74,7 +74,7 @@ const ClockPrompt = ({ updateTime }: Props) => {
             onChange={(e) => {
               let value: number[] = timeToNumber(e.target.value);
               e.target.setAttribute("value", e.target.value);
-              let newTime: Time = { hour: value[0], minute: value[1] };
+              let newTime: Time = new Time(value[0] + ":" + value[1]);
               updateTime(newTime);
               setClock(value[0], value[1]);
             }}

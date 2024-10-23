@@ -1,21 +1,19 @@
 import React from "react";
 import "./StatusPage.css";
 import DevicePane from "./DevicePane/DevicePane";
-import { Device } from "../../classes";
+import { Device } from "../../Classes/classes";
 import ContentPane from "./ContentPane/ContentPane";
-import ClockPrompt from "../Clock/ClockPrompt";
+import { DeviceContext } from "../../Contexts";
 
-const StatusPage: React.FC<{
-  devices: Device[];
-  setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
-}> = ({ devices, setDevices }) => {
+
+const StatusPage: React.FC = () => {
+
+
   return (
     <>
       <div className="statusPage">
         <DevicePane
           className="split left"
-          devices={devices}
-          setDevices={setDevices}
         />
         <div className="split right">
           <ContentPane />

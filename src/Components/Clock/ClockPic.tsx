@@ -17,12 +17,12 @@ const ClockPic = (startHour: number, startMinute: number) => {
       version="1.0"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       width="800px"
       height="800px"
       viewBox="0 0 64 64"
-      enable-background="new 0 0 64 64"
-      xml:space="preserve"
+      enableBackground="new 0 0 64 64"
+      xmlSpace="preserve"
       className="m-auto w-75 h-75"
     >
       <g>
