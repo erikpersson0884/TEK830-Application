@@ -14,10 +14,6 @@
     height: 100%;
 }
 
-.devicePane ul {
-    gap: 2rem;
-}
-
 .devicePane .deviceDiv {
     padding: 1rem;
     border-bottom: 0.005rem solid black;
@@ -27,8 +23,10 @@
     display: flex;
     flex-direction: row;
     /* justify-content: space-between; */
+    /* justify-content: flex-start; */
     flex-wrap: wrap;
     list-style: none;
+    gap: 2rem;
 }
 
 .devicePane .device {
