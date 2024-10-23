@@ -9,6 +9,15 @@
 .mobileSize{
   width : 412px;
   overflow: hidden;
+  border-right: 0.005rem solid black;
+  border-left: 0.005rem solid black;
+}
+
+.clockDiv {
+    width: 412px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .noUlFormatting {
