@@ -1,7 +1,7 @@
 .devicePane {
     background: #444554;
     border-right: 0.005rem solid black;
-    box-shadow: rgb(104, 105, 107) 0px 3px 6px 3px inset, rgba(255, 255, 255, 0.5) 1px -3px 6px -3px inset;
+    /* box-shadow: rgb(104, 105, 107) 0px 3px 6px 3px inset, rgba(255, 255, 255, 0.5) 1px -3px 6px -3px inset; */
 }
 .row {
     margin: 0;
@@ -26,13 +26,13 @@
 .devicePane .deviceList {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
     list-style: none;
 }
 
 .devicePane .device {
-    width: 10rem;
+    width: 8rem;
     border: .005rem #000 solid;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     border-radius: 5px;
