@@ -4,7 +4,7 @@
     font-family: 'Courier New', Courier, monospace;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     gap: 2rem;
     

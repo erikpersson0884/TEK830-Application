@@ -1,77 +1,99 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+.mobileSize{
+  width : 412px;
+  overflow: hidden;
+}
 
 .noUlFormatting {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .noAFormatting, .noAFormatting * {
-  color: var(--textColor);
-  text-decoration: none;
-  font-family: inherit;
+    color: var(--textColor);
+    text-decoration: none;
+    font-family: inherit;
 }
 
 .noButtonFormatting {
-  border: none;
-  background: inherit;
-  cursor: pointer;
+    border: none;
+    background: inherit;
+    cursor: pointer;
 }
 
 .noInputFormatting {
-  border: none;
-  outline: none;
+    border: none;
+    outline: none;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .invisible {
-  visibility: hidden;
+    visibility: hidden;
 }
 
-
-
 .a {
-  position: relative;
+    position: relative;
 }
 
 .a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: #d6155c;
-  transition: width 0.3s ease;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #d6155c;
+    transition: width 0.3s ease;
 }
 
 .a:hover::after {
-  width: 100%;
+    width: 100%;
 }
 
 
 body {
-  min-width: 100vw;
-  min-height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
 }
 
 #root {
-  background: #444554;
-  color: #DBE0D7;
+    background: #444554;
+    color: #DBE0D7;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
+.closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    cursor: pointer;
+
+    height: max-content;
+    width: max-content;
+}
+
+
+
+ /* FUCKING BOOTSTRAP CSS FIX */
+
+ body p {
+    margin: 0;
+ }
+
+ 

@@ -12,6 +12,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import { TimeContext, DeviceContext , SleepCycleTimesContext } from './Contexts'
 
 
+import ReportPage from './Components/ReportPage/ReportPage'
+
 function App() {
     const clock = React.useContext(TimeContext);
     const devices = React.useContext(DeviceContext);
@@ -32,6 +34,9 @@ function App() {
 
         
         devices.forEach((device) => {
+            if (!device.isIncluded || !device.followsSchedule) return;
+
+            // Bedtime routine
             
             // Device controls
             if (device instanceof Lamp) {
@@ -108,6 +113,7 @@ function App() {
     }
 
     return (
+        <div className='mobileSize'>
             <BrowserRouter basename='/TEK830-Application/'> 
                 <Header />
                 {clock.asString()}
@@ -117,12 +123,17 @@ function App() {
                         <StatusPage />
                     } />
 
+                    <Route path="/report" element={
+                        <ReportPage />
+                    } />
+
                     <Route path="/settings" element={
                         <SettingsPage />
                     } />
 
                 </Routes>
             </BrowserRouter>
+        </div>
     )
 }
 
