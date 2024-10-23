@@ -11,15 +11,16 @@ const StatusPage: React.FC<{
 }> = ({ devices, setDevices }) => {
   return (
     <>
+      <div className="split right">
+          <ContentPane />
+        </div>
       <div className="statusPage">
         <DevicePane
-          className="split left"
+          className=""
           devices={devices}
           setDevices={setDevices}
         />
-        <div className="split right">
-          <ContentPane />
-        </div>
+        
       </div>
     </>
   );
