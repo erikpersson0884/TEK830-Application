@@ -18,10 +18,10 @@ const DevicePane: React.FC<{className: String, devices: Device[], setDevices: Re
 
     return (
       <div className={`devicePane ${className}`}>
-          <ul>
+          <ul className="deviceUl">
               {deviceConverter.map((deviceType) => (
                 <div className="deviceDiv" key={deviceType.name}>
-                    <h3>{deviceType.name}</h3>
+                    <h3 className="deviceH3">{deviceType.name}</h3>
                     <ul className="deviceList">
                         {devices.filter((device) => device instanceof deviceType.type).map((device) => (
 
