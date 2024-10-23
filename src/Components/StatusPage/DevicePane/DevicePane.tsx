@@ -1,6 +1,7 @@
 import React from "react";
 import "./DevicePane.css"
 import { Device, Lamp, Ac, Blinds} from '../../../classes';
+import DeviceDiv from "./DeviceDiv/DeviceDiv";
 
 interface StatusDevice extends Device {
     status: string;
@@ -8,7 +9,7 @@ interface StatusDevice extends Device {
 
 const DevicePane: React.FC<{className: String, devices: Device[], setDevices: React.Dispatch<React.SetStateAction<Device[]>> }> = ({className, devices, setDevices }) => { 
   
-    let deviceConverter = [
+    let deviceConverter: {name:string, type: typeof Lamp | typeof Ac | typeof Blinds}[] = [
         {name: "Lights", type: Lamp},
         {name: "Temperature", type: Ac},
         {name: "Blinds", type: Blinds},
@@ -25,27 +26,7 @@ const DevicePane: React.FC<{className: String, devices: Device[], setDevices: Re
                         {devices.filter((device) => device instanceof deviceType.type).map((device) => (
 
                             device.isIncluded ?(
-                                <li 
-                                    key={device.name} 
-                                    className={`${deviceType.name.toLocaleLowerCase()} device`}  
-                                    
-                                >
-                                    <div 
-                                        className="deviceImage"
-                                        style={{
-                                            ...(device instanceof Lamp ? { backgroundColor: device.color, backgroundImage: "url(lightbulb.svg)"} : {}),
-                                            ...(device instanceof Ac ? { backgroundImage: "url(thermostat.svg)"} : {}),
-                                            ...(device instanceof Blinds ? { backgroundImage: "url(blinds.svg)"} : {}),
-                                        }}
-                                    ></div>
-                                    <div className="deviceInfo">
-                                        <p>{device.name}</p>
-                                        <p>{device.getIsPoweredOn() ? "Is On" : "Is Off"}</p>
-                                        {device instanceof Lamp ? <p>Brightness: {device.brightness}</p> : null}
-                                        {device instanceof Ac ? <p>Temperature: {device.temperature}°C</p> : null}
-                                        {device instanceof Blinds ? <p>{device.isOpen ? "Open" : "Closed"}</p> : null}
-                                    </div>
-                                </li>
+                                <DeviceDiv device={device} deviceType={deviceType} />
                             ) : null
                         ))}
                     </ul>

@@ -12,6 +12,8 @@ import { Device, Lamp, Ac, Blinds  } from './classes'
 import initialDevices from './Controllers/IkeaAPI'
 import "bootstrap/dist/css/bootstrap.css";
 
+import ReportPage from './Components/ReportPage/ReportPage'
+
 function App() {
     const [devices, setDevices] = useState<Device[]>(initialDevices);
 
@@ -52,6 +54,9 @@ function App() {
         const wakeRoutineTime = 1; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
+            if (!device.isIncluded || !device.followsSchedule) return;
+
+            // Bedtime routine
             
             var timeDouble = timeToDouble(clock);
             var bedTimeDouble = timeToDouble(bedTimeDate);
@@ -146,6 +151,10 @@ function App() {
 
                     <Route path="/" element={
                         <StatusPage devices={devices} setDevices={setDevices} />
+                    } />
+
+                    <Route path="/report" element={
+                        <ReportPage />
                     } />
 
                     <Route path="/settings" element={
