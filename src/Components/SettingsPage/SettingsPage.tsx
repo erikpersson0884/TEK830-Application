@@ -95,6 +95,7 @@ const SettingsPage: React.FC = () => {
                                 <input 
                                     id={`device-${device.name}`}
                                     type="checkbox" 
+                                    
                                     checked={device.isIncluded} 
                                     onChange={(event) => toggleDeviceInclusion(event, device)}
                                 />

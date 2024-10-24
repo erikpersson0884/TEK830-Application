@@ -115,8 +115,8 @@ function App() {
     return (
         <div className='mobileSize'>
             <BrowserRouter basename='/TEK830-Application/'> 
-                <Header />
-                {clock.asString()}
+                <Header/>
+                <p className='digitalClock'>{clock.asString()}</p> 
                 <Routes>
 
                     <Route path="/" element={
