@@ -2,7 +2,7 @@ import React from "react";
 
 import "./deviceSettingsPopup.css";
 
-import { Device, Lamp, Ac } from "../../../../classes";
+import { Device, Lamp, Ac } from "../../../../Classes/Device";
 
 
 interface DeviceSettingsPopupProps {

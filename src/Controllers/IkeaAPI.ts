@@ -1,7 +1,5 @@
 
-import {Device, Lamp, Ac, Blinds} from '../classes';
-import React, { useState } from 'react';
-
+import {Device, Lamp, Ac, Blinds} from '../Classes/Device';
 
 let initialDevices: Device[] = [
     new Lamp("Living room lamp", "living room", true, true, "white", 100),
@@ -13,10 +11,5 @@ let initialDevices: Device[] = [
     new Blinds("Diningg room blinds1", "Bedroom", true, true, true),
     new Ac("Thermometer", "living room", true, true, 50),
 ];
-
-
-
-
-
 
 export default initialDevices;

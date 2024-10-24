@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lamp, Ac, Blinds, Device } from '../../../../classes';
+import { Lamp, Ac, Blinds, Device } from '../../../../Classes/Device';
 import ShadowBox from '../../../ShadowBox/ShadowBox';
 import DeviceSettingsPopup from '../deviceSettingsPopup/deviceSettingsPopup';
 

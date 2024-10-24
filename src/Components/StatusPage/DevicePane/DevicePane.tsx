@@ -1,13 +1,16 @@
 import React from "react";
 import "./DevicePane.css"
-import { Device, Lamp, Ac, Blinds} from '../../../classes';
+import { Device, Lamp, Ac, Blinds} from '../../../Classes/Device';
 import DeviceDiv from "./DeviceDiv/DeviceDiv";
+import { DeviceContext } from "../../../Contexts";
 
 interface StatusDevice extends Device {
     status: string;
 }
 
-const DevicePane: React.FC<{className: String, devices: Device[], setDevices: React.Dispatch<React.SetStateAction<Device[]>> }> = ({className, devices, setDevices }) => { 
+const DevicePane: React.FC<{className: String}> = ({className }) => { 
+
+    const devices = React.useContext(DeviceContext);
   
     let deviceConverter: {name:string, type: typeof Lamp | typeof Ac | typeof Blinds}[] = [
         {name: "Lights", type: Lamp},
