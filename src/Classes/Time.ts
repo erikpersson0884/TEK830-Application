@@ -2,8 +2,8 @@ export class Time {
     hours: number;
     minutes: number;
 
-    constructor(timeAsString: string) {
-        const time = timeAsString.split(":");
+    initFromString(inputTime: string): void {
+        const time = inputTime.split(":");
         const hours: number = parseInt(time[0]);
         const minutes: number = parseInt(time[1]);
         if (hours < 0 || hours > 24) {
@@ -14,6 +14,22 @@ export class Time {
         }
         this.hours = hours;
         this.minutes = minutes;
+    }
+
+    initFromDouble(inputTime: number): void {
+        const hours = Math.floor(inputTime);
+        const minutes = Math.round((inputTime - hours) * 60);
+        this.hours = hours;
+        this.minutes = minutes;
+    }
+
+    constructor(inputTime: string | number) {
+        if (typeof inputTime === "string") {
+            this.initFromString(inputTime);
+        } else {
+            this.initFromDouble(inputTime);
+        }
+
     }
 
 
@@ -60,6 +76,14 @@ export class Time {
         const hours = this.hours < 10 ? `0${this.hours}` : this.hours;
         const minutes = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
         return `${hours}:${minutes}`;
+    }
+
+    hourAsString(): string {
+        return this.hours < 10 ? `0${this.hours}` : this.hours.toString();
+    }
+
+    minuteAsString(): string {
+        return this.minutes < 10 ? `0${this.minutes}` : this.minutes.toString();
     }
 
     static fromString(time: string): Time {

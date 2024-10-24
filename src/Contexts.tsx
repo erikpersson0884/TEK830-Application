@@ -74,7 +74,7 @@ export const TimeContext = createContext<Time>(Time.now());
 const simulatedTimeFor1Minute = 1/3000;
 
 export const TimeProvider = ({ children }) => {
-    const [clock, setClock] = React.useState<Time>(Time.now());
+    const [clock, setClock] = React.useState<Time>(new Time("19:00"));
 
     React.useEffect(() => {
         const intervalId = setInterval(() => {
@@ -92,6 +92,16 @@ export const TimeProvider = ({ children }) => {
         </TimeContext.Provider>
     );
 };
+
+export function useTimeContext() {
+    let context = useContext(TimeContext);
+
+    if (context === undefined) {
+        throw new Error("useTimeContext must be used within a TimeProvider");
+    }
+
+    return context;
+}
 
 
 export const DeviceContext = createContext<Device[]>(initialDevices);

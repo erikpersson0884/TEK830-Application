@@ -53,16 +53,6 @@ const SettingsPage: React.FC = () => {
         <div className="settingsPage">
             <div className="sleepGoalsDiv">
                 <h1>My Sleep Goals</h1>
-                <div className="goal">
-                    <label htmlFor="sleepGoals">I want to go to sleep at: </label>
-                    <input 
-                        type="time" 
-                        id="sleepGoals" 
-                        name="sleepGoals" 
-                        value={bedTime.asString()} 
-                        onChange={handleBedTimeChange} 
-                    />
-                </div>
 
                 <div className="goal">
                     <label htmlFor="wakeUpGoals">I want to wake up at: </label>
@@ -72,6 +62,17 @@ const SettingsPage: React.FC = () => {
                         name="wakeUpGoals" 
                         value={wakeTime.asString()} 
                         onChange={handleWakeTimeChange} 
+                    />
+                </div>
+
+                <div className="goal">
+                    <label htmlFor="sleepGoals">I want to go to sleep at: </label>
+                    <input 
+                        type="time" 
+                        id="sleepGoals" 
+                        name="sleepGoals" 
+                        value={bedTime.asString()} 
+                        onChange={handleBedTimeChange} 
                     />
                 </div>
 
