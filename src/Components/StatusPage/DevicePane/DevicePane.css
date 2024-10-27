@@ -1,7 +1,12 @@
 .devicePane {
     background: #444554;
-    border-right: 0.005rem solid black;
     /* box-shadow: rgb(104, 105, 107) 0px 3px 6px 3px inset, rgba(255, 255, 255, 0.5) 1px -3px 6px -3px inset; */
+}
+
+.deviceUl {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 .row {
     margin: 0;
@@ -16,21 +21,30 @@
 
 .devicePane .deviceDiv {
     padding: 1rem;
+    border-top: 0.005rem solid black;
     border-bottom: 0.005rem solid black;
+    
+}
+
+.devicePane .deviceH3 {
+    height: 2.5rem;
 }
 
 .devicePane .deviceList {
     display: flex;
+    padding: 0;
     flex-direction: row;
-    /* justify-content: space-between; */
-    /* justify-content: flex-start; */
     flex-wrap: wrap;
     list-style: none;
     gap: 2rem;
 }
 
+/* flex-grow and flex-shrink is 0 to make inflexible flex items. The flexibility is controlled via the maximized rem-value when we take the entire width of 412px, the padding of 1rem and the gap between the items of 2rem.*/
+.devicePane .deviceList>* {
+    flex: 0 0 10.875rem;
+}
+
 .devicePane .device {
-    width: 8rem;
     border: .005rem #000 solid;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     border-radius: 5px;
