@@ -118,7 +118,7 @@ function App() {
                 <Header />
               
                 <div className="clockDiv"> 
-                    {clock.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {clock.asString()}
                 </div>
 
                 <Routes>

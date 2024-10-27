@@ -18,9 +18,6 @@ const DeviceDiv: React.FC<DeviceProps> = ({ device, deviceType }) => {
 
     const [showSettingsPopup, setShowSettingsPopup] = React.useState(false);
 
-
-    if (device instanceof Lamp) console.log(`rgba(${device.color}${device.brightness / 100})`)
-
     return (
         <>
             <ShadowBox show={showSettingsPopup} setShow={setShowSettingsPopup} >
