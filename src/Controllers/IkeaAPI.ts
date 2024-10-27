@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 
 let initialDevices: Device[] = [
-    new Lamp("Living room lamp", "living room", true, true, "white", 100),
+    new Lamp("Living room lamp", "living room", true, true, "#339955", 100),
     new Ac("ac1", "living room", true, false, 18),
     new Lamp("lamp2", "living room", true, true, "#F5C338", 100),
     new Lamp("Kitchen big lamp", "Kitchen", true, true, "#F22734", 100),
