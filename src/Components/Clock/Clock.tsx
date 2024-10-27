@@ -2,16 +2,14 @@ import React from "react";
 import "../SettingsPage/SettingsPage.css";
 import ClockPrompt from "./ClockPrompt";
 import { Time } from "../../Classes/Time";
-interface Props {
-    updateTime: (time: Time) => void;
-}
 
-const Clock = ({ updateTime }: Props) => {
+
+const Clock = () => {
   return (
     <>
       <div
         className="h-60 text-white"
-        children={<ClockPrompt updateTime={updateTime} />}
+        children={<ClockPrompt />}
       />
     </>
   );

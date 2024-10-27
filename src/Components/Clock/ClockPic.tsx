@@ -1,11 +1,10 @@
 import React from "react";
-import "../SettingsPage/SettingsPage.css";
 
-import {useTimeContext, useSleepCycleTimesContext } from "../../Contexts";
+import {SleepCycleTimesContext, TimeContext } from "../../Contexts";
 
 const ClockPic = () => {
-  const time = useTimeContext();
-  const sleepCycle = useSleepCycleTimesContext();
+  const time = React.useContext(TimeContext);
+  const sleepCycle = React.useContext(SleepCycleTimesContext);
 
   let startHour: number = time < sleepCycle.wakeTime ? 
       sleepCycle.wakeTime.hours - sleepCycle.wakeDimmingTimeLength.hours : 

@@ -4,23 +4,25 @@ import React from "react";
 import Button from "../Button/Button";
 import Modal from "./Modal";
 import ClockPic from "./ClockPic";
-import { TimeContext } from "../../Contexts";
+import { TimeContext, SleepCycleTimesContext } from "../../Contexts";
 import { Time } from "../../Classes/Time";
+
 interface Props {
-  updateTime: (time: Time) => void;
 }
 
-const ClockPrompt = ({ updateTime }: Props) => {
+const ClockPrompt = ({  }: Props) => {
   let time = React.useContext(TimeContext);
+  let sleepCycle = React.useContext(SleepCycleTimesContext);
+
   const [open, setOpen] = React.useState(false);
-  const [svg, setSvg] = React.useState(ClockPic(time.hours, time.minutes));
+  const [svg, setSvg] = React.useState(ClockPic());
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const setClock = (startHour: number, startMinute: number) => {
-    setSvg(ClockPic(startHour, startMinute));
+  const setClock = () => {
+    setSvg(ClockPic());
   };
 
   const timeToNumber = (time: string) => {
@@ -75,8 +77,8 @@ const ClockPrompt = ({ updateTime }: Props) => {
               let value: number[] = timeToNumber(e.target.value);
               e.target.setAttribute("value", e.target.value);
               let newTime: Time = new Time(value[0] + ":" + value[1]);
-              updateTime(newTime);
-              setClock(value[0], value[1]);
+              sleepCycle.bedTime = newTime;
+              setClock();
             }}
             size={10}
           ></input>
