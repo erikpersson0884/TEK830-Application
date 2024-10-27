@@ -7,66 +7,42 @@ import SettingsPage from './Components/SettingsPage/SettingsPage'
 import Header from './Components/Header/Header'
 import StatusPage from './Components/StatusPage/StatusPage'
 
-import { useState } from 'react'
-import { Device, Lamp, Ac, Blinds  } from './classes'
-import initialDevices from './Controllers/IkeaAPI'
+import { Lamp, Ac, Blinds  } from './Classes/Device'
 import "bootstrap/dist/css/bootstrap.css";
+import { TimeContext, DeviceContext , SleepCycleTimesContext } from './Contexts'
+
 
 import ReportPage from './Components/ReportPage/ReportPage'
 
 function App() {
-    const [devices, setDevices] = useState<Device[]>(initialDevices);
-
-    const clockSpeed = 10;
-    const [clock, setClock] = useState(new Date("2021-10-10T04:00:00"));
-
-
-    React.useEffect(() => {
-        const intervalId = setInterval(() => {
-            
-            setClock(prevClock => new Date(prevClock.getTime() + 60000));
-
-        }, clockSpeed);
-
-        return () => clearInterval(intervalId); // Cleanup on unmount
-    }, []);
+    const clock = React.useContext(TimeContext);
+    const devices = React.useContext(DeviceContext);
+    const sleepCycleTimes = React.useContext(SleepCycleTimesContext);
 
     handleDevices();
 
     function handleDevices() {
-        let bedTime: string = localStorage.getItem('bedTime') || '22:00';
-        let wakeTime: string = localStorage.getItem('wakeUpTime') || '06:00';
 
-        // TIme for bedtime
-        const [bedHour, bedMinute] = bedTime.split(':').map(Number);
-        const bedTimeDate = new Date(clock);
-        bedTimeDate.setHours(bedHour, bedMinute, 0, 0);
+        const bedTimeDouble: number = sleepCycleTimes.bedTime.asDouble();
+        const wakeTimeDouble: number = sleepCycleTimes.wakeTime.asDouble();
+        const clockDouble: number = clock.asDouble();
+        const bedDimmingTimeDouble = sleepCycleTimes.bedDimmingTimeLength.asDouble();
+        const wakeDimmingTimeDouble = sleepCycleTimes.wakeDimmingTimeLength.asDouble();
 
-        //Time for wake up
-        const [wakeHour, wakeMinute] = wakeTime.split(':').map(Number);
-        const wakeTimeDate = new Date(clock);
-        wakeTimeDate.setHours(wakeHour, wakeMinute, 0, 0);
 
-        const timeUntilBedtime = (bedTimeDate.getTime() - clock.getTime()) / 1000 / 60; // time in minutes
+        const timeUntilBedtime = bedTimeDouble - clockDouble;
 
-        // TODO: These should also be global variables later
-        const bedRoutineTime = 2    // 2 hours for lights to dim
-        const wakeRoutineTime = 1; // 1 hours for lights to brighten
         
         devices.forEach((device) => {
             if (!device.isIncluded || !device.followsSchedule) return;
 
             // Bedtime routine
             
-            var timeDouble = timeToDouble(clock);
-            var bedTimeDouble = timeToDouble(bedTimeDate);
-            var wakeTimeDouble = timeToDouble(wakeTimeDate);
-
             // Device controls
             if (device instanceof Lamp) {
                 let newBrightness = 0;
                 
-                newBrightness = lightBrightness(timeDouble, bedTimeDouble, wakeTimeDouble, bedRoutineTime, wakeRoutineTime);
+                newBrightness = lightBrightness(clockDouble, bedTimeDouble, wakeTimeDouble, bedDimmingTimeDouble, wakeDimmingTimeDouble);
 
                 device.setBrightness(newBrightness);
 
@@ -80,18 +56,18 @@ function App() {
             if (device instanceof Ac) {
                 let newTemperature = 0;
 
-                newTemperature = temperatureCalculator(timeDouble, bedTimeDouble, wakeTimeDouble, bedRoutineTime, wakeRoutineTime);
+                newTemperature = temperatureCalculator(clockDouble, bedTimeDouble, wakeTimeDouble, bedDimmingTimeDouble, wakeDimmingTimeDouble);
 
                 device.setTemperature(newTemperature);
 
             }
             if (device instanceof Blinds) {
-                let bedRutineStart = bedTimeDouble - bedRoutineTime
-                let wakeRutineStart = wakeTimeDouble - wakeRoutineTime
+                let bedRutineStart = bedTimeDouble - bedDimmingTimeDouble
+                let wakeRutineStart = wakeTimeDouble - wakeDimmingTimeDouble
 
-                if (bedRutineStart - 10 <= timeDouble && timeDouble <= bedRutineStart +10) {
+                if (bedRutineStart - 10 <= clockDouble && clockDouble <= bedRutineStart +10) {
                     device.openBlinds();
-                } else if (wakeRutineStart - 10 <= timeDouble && timeDouble <= wakeRutineStart +10) {
+                } else if (wakeRutineStart - 10 <= clockDouble && clockDouble <= wakeRutineStart +10) {
                     device.closeBlinds();
                 } 
             }
@@ -100,13 +76,13 @@ function App() {
     }
 
 
-    function lightBrightness(t: number, b: number, w: number, bedRoutineTime: number, wakeRoutineTime: number) {
+    function lightBrightness(t: number, b: number, w: number, bedRoutine: number, wakeRoutine: number) {
         var brightness = 0;
 
         if (0 <= t && t < 12) {
-            brightness = (100 / wakeRoutineTime) * (t - w + wakeRoutineTime);
+            brightness = (100 / wakeRoutine) * (t - w + wakeRoutine);
         } else if (12 <= t && t <= 24) {
-            brightness = (100 / bedRoutineTime) * (b - t);
+            brightness = (100 / bedRoutine) * (b - t);
         } 
         
         brightness = clampAndRound(brightness, 0, 100);
@@ -114,7 +90,7 @@ function App() {
         return brightness;
     }
 
-    function temperatureCalculator(t: number, b: number, w: number, bedRoutineTime: number, wakeRoutineTime: number) {
+    function temperatureCalculator(t: number, b: number, w: number, bedRoutine: number, wakeRoutine: number) {
         var temperature = 0;
         // TODO: Temperature settings, will be set to global variables later
         var minTemp = 18;
@@ -122,20 +98,14 @@ function App() {
         var tempDiff = maxTemp - minTemp;
         
         if (0 <= t && t < 12) {
-            temperature = minTemp + (tempDiff / wakeRoutineTime) * (t - w + wakeRoutineTime);
+            temperature = minTemp + (tempDiff / wakeRoutine) * (t - w + wakeRoutine);
         } else if (12 <= t && t <= 24) {
-            temperature = minTemp + (tempDiff / bedRoutineTime) * (b - t);
+            temperature = minTemp + (tempDiff / bedRoutine) * (b - t);
         }
 
         temperature = clampAndRound(temperature, 18, 22);
 
         return temperature;
-    }
-
-    function timeToDouble(time: Date){
-        const hours = time.getHours();
-        const minutes = time.getMinutes();
-        return hours + minutes / 60;
     }
 
     function clampAndRound(brightness: number, min: number, max: number) {
@@ -146,13 +116,15 @@ function App() {
         <div className='mobileSize'>
             <BrowserRouter basename='/TEK830-Application/'> 
                 <Header />
+              
                 <div className="clockDiv"> 
-                    {clock.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {clock.asString()}
                 </div>
+
                 <Routes>
 
                     <Route path="/" element={
-                        <StatusPage devices={devices} setDevices={setDevices} />
+                        <StatusPage />
                     } />
 
                     <Route path="/report" element={
@@ -160,7 +132,7 @@ function App() {
                     } />
 
                     <Route path="/settings" element={
-                        <SettingsPage devices={devices} setDevices={setDevices} />
+                        <SettingsPage />
                     } />
 
                 </Routes>

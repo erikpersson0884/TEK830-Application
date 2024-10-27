@@ -2,7 +2,7 @@ import React from "react";
 
 import "./deviceSettingsPopup.css";
 
-import { Device, Lamp, Ac } from "../../../../classes";
+import { Device, Lamp, Ac } from "../../../../Classes/Device";
 
 
 interface DeviceSettingsPopupProps {
@@ -32,7 +32,6 @@ const DeviceSettingsPopup: React.FC<DeviceSettingsPopupProps> = ({ device, close
     function handleSlierChange(event: React.ChangeEvent<HTMLInputElement>): void {
         const newBrightness = parseInt(event.target.value);
         setSliderValue(newBrightness);
-        console.log(newBrightness);
 
         if (device instanceof Lamp) (device as Lamp).setBrightness(newBrightness);
         else if (device instanceof Ac) (device as Ac).setTemperature(newBrightness);

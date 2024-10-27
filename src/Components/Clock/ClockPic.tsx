@@ -1,9 +1,21 @@
 import React from "react";
-import "../SettingsPage/SettingsPage.css";
 
-const ClockPic = (startHour: number, startMinute: number) => {
-  let stopHour: number = startHour - 2;
-  let stopMinute: number = startMinute;
+import {SleepCycleTimesContext, TimeContext } from "../../Contexts";
+
+const ClockPic = () => {
+  const time = React.useContext(TimeContext);
+  const sleepCycle = React.useContext(SleepCycleTimesContext);
+
+  let startHour: number = time < sleepCycle.wakeTime ? 
+      sleepCycle.wakeTime.hours - sleepCycle.wakeDimmingTimeLength.hours : 
+      sleepCycle.bedTime.hours - sleepCycle.bedDimmingTimeLength.hours;
+  let startMinute: number = time < sleepCycle.wakeTime ? 
+      sleepCycle.wakeTime.minutes - sleepCycle.wakeDimmingTimeLength.minutes : 
+      sleepCycle.bedTime.minutes;
+
+  let stopHour: number = time < sleepCycle.wakeTime ? sleepCycle.wakeTime.hours : sleepCycle.bedTime.hours;
+  let stopMinute: number = time < sleepCycle.wakeTime ? sleepCycle.wakeTime.minutes : sleepCycle.bedTime.minutes;
+
   let startAngle: number = getAngle(startHour, startMinute);
   let endAngle: number = getAngle(stopHour, stopMinute);
   if (startAngle < 0 && endAngle > 0) {
@@ -17,12 +29,12 @@ const ClockPic = (startHour: number, startMinute: number) => {
       version="1.0"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       width="800px"
       height="800px"
       viewBox="0 0 64 64"
-      enable-background="new 0 0 64 64"
-      xml:space="preserve"
+      enableBackground="new 0 0 64 64"
+      xmlSpace="preserve"
       className="m-auto w-75 h-75"
     >
       <g>
@@ -49,7 +61,7 @@ const ClockPic = (startHour: number, startMinute: number) => {
             radius,
             0,
             0,
-            1,
+            0,
             centerX + Math.cos(startAngle) * radius,
             centerY - Math.sin(startAngle) * radius,
             "L",

@@ -1,14 +1,14 @@
 import React from "react";
 import "./StatusPage.css";
 import DevicePane from "./DevicePane/DevicePane";
-import { Device } from "../../classes";
+import { Device } from "../../Classes/Device";
 import ContentPane from "./ContentPane/ContentPane";
-import ClockPrompt from "../Clock/ClockPrompt";
+import { DeviceContext } from "../../Contexts";
 
-const StatusPage: React.FC<{
-  devices: Device[];
-  setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
-}> = ({ devices, setDevices }) => {
+
+const StatusPage: React.FC = () => {
+
+
   return (
     <>
       <div className="split right">
@@ -16,11 +16,8 @@ const StatusPage: React.FC<{
         </div>
       <div className="statusPage">
         <DevicePane
-          className=""
-          devices={devices}
-          setDevices={setDevices}
+          className="split left"
         />
-        
       </div>
     </>
   );
